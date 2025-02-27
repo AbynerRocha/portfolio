@@ -9,11 +9,14 @@ import { SiMongodb } from 'react-icons/si'
 import { TbBrandTypescript } from 'react-icons/tb'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ToolTIp'
 import Link from 'next/link'
-import { Project } from '@/@types/projects'
-import { Tech } from '@/@types/tech'
+import { projectSchema } from '@/@types/projects'
+import { techsSchema } from '@/@types/tech'
 import { MdOutlineWebAsset } from 'react-icons/md'
 import { twMerge } from 'tailwind-merge'
+import { z } from 'zod'
 
+type Project = z.infer<typeof projectSchema>
+type Tech = z.infer<typeof techsSchema>
 
 interface ICardProps {
   className?: string
