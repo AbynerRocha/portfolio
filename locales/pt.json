@@ -1,0 +1,18 @@
+{
+    "navbar": {
+        "home": "início",
+        "about_me": "sobre mim",
+        "projects": "projetos",
+        "contact": "contatos"
+    },
+    "home": {
+        "sub_text": "Olá, me chamo",
+        "sub_header": "Eu faço coisas para a web.",
+        "button_text": "Vamos trabalhar juntos"
+    },
+    "about_me": {
+        "description": "Dolore proident veniam amet sunt dolore culpa excepteur. Lorem laborum non excepteur non. Veniam nostrud veniam tempor deserunt ea deserunt sit labore elit nulla veniam. Laborum dolore esse ex ex occaecat amet.<br />Ipsum adipisicing ad sit quis pariatur sunt do do. Consectetur qui esse commodo officia ea anim excepteur consectetur. Do id occaecat voluptate aliqua cillum. Laboris mollit esse duis do occaecat. Exercitation sit officia minim velit amet amet culpa qui. Adipisicing eiusmod in elit deserunt ad reprehenderit eiusmod mollit tempor veniam quis officia ea fugiat.",
+        "cv_button": "Baixar CV",
+        "techs_title": "Tecnologias que eu uso"
+    }
+}

@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body
-        className={`antialiased h-screen w-screen bg-zinc-900 overflow-x-hidden`}
+        className={`antialiased h-screen w-screen bg-zinc-900 overflow-x-hidden scroll-smooth`}
       >
         {children}
       </body>

@@ -1,0 +1,9 @@
+[
+    {
+        "name": "EvoTraining",
+        "description": "EvoTraining é uma app mobile que permite os usuários a criarem e monitorarem os seus treinos de musculação.",
+        "type": "mobile",
+        "techs": ["ReactJS", "TypeScript", "NextJS", "MongoDB","TailwindCSS"],
+        "github": "https://github.com/AbynerRocha/evotraining"
+    }
+]

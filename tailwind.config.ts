@@ -14,6 +14,7 @@ export default {
       },
       animation: {
         "spin-slow": "spin 4s linear infinite",
+        "overfolw-scroll": "overflow-scroll 0.5s",
       }
     },
   },

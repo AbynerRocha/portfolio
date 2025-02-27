@@ -1,0 +1,18 @@
+{
+    "navbar": {
+        "home": "home",
+        "projects": "projects",
+        "about_me": "about-me",
+        "contact": "contacts"
+    },
+    "home": {
+        "sub_text": "Hello, my name is",
+        "sub_header": "I build things for the web.",
+        "button_text": "Let's work together"
+    },
+    "about_me": {
+        "description": "Dolore proident veniam amet sunt dolore culpa excepteur. Lorem laborum non excepteur non. Veniam nostrud veniam tempor deserunt ea deserunt sit labore elit nulla veniam. Laborum dolore esse ex ex occaecat amet.<br />Ipsum adipisicing ad sit quis pariatur sunt do do. Consectetur qui esse commodo officia ea anim excepteur consectetur. Do id occaecat voluptate aliqua cillum. Laboris mollit esse duis do occaecat. Exercitation sit officia minim velit amet amet culpa qui. Adipisicing eiusmod in elit deserunt ad reprehenderit eiusmod mollit tempor veniam quis officia ea fugiat.",
+        "cv_button": "Download CV",
+        "techs_title": "Techs I use"
+    }
+}

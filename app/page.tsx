@@ -3,16 +3,36 @@
 import Navbar from "@/components/Navbar";
 import Image from 'next/image'
 import MyPhoto from '../public/abyner.jpg'
-import LinkedinLogo from '../public/linkedin.svg'
+import { z } from 'zod'
 import { JetBrains_Mono } from 'next/font/google'
-import { motion, useScroll, useSpring, useTime, useTransform } from 'motion/react'
-import { FaAngleDoubleUp, FaAngleDoubleDown, FaLinkedinIn, FaReact, FaHtml5, FaCss3 } from "react-icons/fa";
-import { useEffect, useState } from "react";
-import { SiTypescript } from "react-icons/si";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ToolTIp";
+import { m, motion, useMotionValue, useScroll, useTime, useTransform } from 'motion/react'
+import { FaAngleDoubleUp, FaAngleDoubleDown, FaLinkedinIn, FaReact, FaHtml5, FaCss3, FaJs, FaStar, FaPhp, FaHeart, FaDownload, FaFileDownload, FaGithub } from "react-icons/fa";
+import { use, useEffect, useState } from "react";
+import { SiJavascript, SiTypescript } from "react-icons/si";
 import Card from "@/components/Card";
+import PortuguseLang from "@/locales/pt.json"
+import EnglishLang from "@/locales/en.json"
+import { projectSchema } from "@/@types/projects";
+import ProjectsPT from "@/locales/projects/pt.json";
+import ProjectsEN from "@/locales/projects/en.json";
+import { MdOutgoingMail } from "react-icons/md";
+import TypingAnim from "@/components/Animations/Typing";
 
 const jetBrainsMono = JetBrains_Mono({ subsets: ['latin'] })
+
+type Project = z.infer<typeof projectSchema>
+
+const projectsPT = projectSchema.array().parse(ProjectsPT)
+const projectsEN = projectSchema.array().parse(ProjectsEN)
+
+const myTechs = [
+  { name: 'ReactJS', skillRating: 4, icon: FaReact },
+  { name: 'JavaScript', skillRating: 4, icon: SiJavascript },
+  { name: 'TypeScript', skillRating: 4, icon: SiTypescript },
+  { name: 'HTML', skillRating: 5, icon: FaHtml5 },
+  { name: 'CSS', skillRating: 4, icon: FaCss3 },
+  { name: 'PHP', skillRating: 3, icon: FaPhp },
+]
 
 interface ISections {
   id: string,
@@ -20,16 +40,13 @@ interface ISections {
 }
 
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(false)
+  const [language, setLanguage] = useState<'en' | 'pt'>('pt')
+  const [languageText, setLanguageText] = useState<typeof PortuguseLang>(PortuguseLang)
   const [scrollElements, setScrollElements] = useState<ISections[]>([])
+  const [projects, setProjects] = useState<Project[]>(projectsPT)
 
-  useEffect(() => {
-    setScrollElements([
-      { id: 'home', element: document.getElementById('home') },
-      { id: 'about-me', element: document.getElementById('about-me') },
-      { id: 'projects', element: document.getElementById('projects') },
-      { id: 'contacts', element: document.getElementById('contacts') }
-    ])
-  }, [])
+  // Animations
 
   const distance = 10
   const time = useTime()
@@ -39,44 +56,115 @@ export default function Home() {
   const scaleChevronScroll = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
 
   const chevronLoopAnimY = useTransform(time, (latest) => Math.sin(latest / 270) * distance);
-  const blinkLoopAnim = useTransform(time, (latest) => Math.sin(latest / 100) * 10)
 
   const scrollToTopOpacity = useTransform(scrollYProgress, [0.1, 0.5], [0, 1])
   const scrollToTopDisplay = useTransform(scrollYProgress, [0.1, 0.7], ['none', 'flex'])
 
-  function handleScrollTo(element?: HTMLElement | null) {
+  useEffect(() => {
+    setScrollElements([
+      { id: 'home', element: document.getElementById('home') },
+      { id: 'about-me', element: document.getElementById('about-me') },
+      { id: 'about-me-mobile', element: document.getElementById('about-me-mobile') },
+      { id: 'projects', element: document.getElementById('projects') },
+      { id: 'contacts', element: document.getElementById('contacts') }
+    ])
+
+
+
+    setIsMobile((window.innerWidth <= 768))
+
+    window.addEventListener('resize', () => setIsMobile((window.innerWidth <= 768)))
+
+    return () => {
+      window.removeEventListener('resize', () => setIsMobile((window.innerWidth <= 768)))
+    };
+  }, [])
+
+
+  function handleScrollTo(element?: HTMLElement | null, block: 'start' | 'center' | 'end' = 'center') {
     if (!element || element === null) return
 
-    element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    element.scrollIntoView({ behavior: 'smooth', block })
   }
 
+  function handleChangeLanguage(lang: 'en' | 'pt') {
+    setLanguage(lang)
+    setLanguageText(lang === 'en' ? EnglishLang : PortuguseLang)
+    setProjects(lang === 'en' ? projectsEN : projectsPT)
+  }
+
+  function renderTechSkillLevel(level: number) {
+    let darkStars = 5 - level
+    let stars = []
+
+    // White Stars
+    for (let i = 0; i < level; i++) {
+      stars.push(<FaStar key={i + level} className="size-5 text-zinc-400 group-hover:text-zinc-200 transition-all ease-linear duration-200" />)
+    }
+
+    // Dark Stars
+    for (let i = 0; i < darkStars; i++) {
+      stars.push(<FaStar key={i} className="size-5 text-zinc-700" />)
+    }
+
+    return stars
+  }
 
   return (
     <main className="h-full w-full">
-      <Navbar elements={scrollElements} />
+      <Navbar
+        elements={scrollElements}
+        language={language}
+        onLanguageChange={handleChangeLanguage}
+        isMobile={isMobile}
+      />
 
       <section className="w-full h-[60rem]">
-        <div className="flex h-[94%] justify-center items-center ">
+        <div className="flex h-[94%] max-sm:h-[77%] justify-center items-center ">
           <div className="flex flex-row h-64 w-fit ml-3" id='home'>
 
             <div className="flex flex-col justify-center h-full w-full space-y-2">
               <div className="flex flesx-row items-end space-x-1">
-                <span className={`${jetBrainsMono.className} text-zinc-500 text-lg`}>Hello, my name is</span>
-                <motion.div
-                  className="h-[18px] w-[0.3px] mb-[5px] bg-zinc-100"
-                  style={{ opacity: blinkLoopAnim }}
-                />
+                <TypingAnim 
+                  blink 
+                  speed={80} 
+                  className={`${jetBrainsMono.className} text-zinc-500 text-lg`}
+                >
+                  {languageText.home.sub_text}
+                </TypingAnim>
               </div>
-              <h2 className="text-zinc-200 font-semibold text-7xl">Abyner Rocha</h2>
-              <h4 className="text-zinc-400 font-light text-5xl">I build things for the web </h4>
-              <div className="w-full flex justify-end">
+              <motion.h2 
+                initial={{ opacity: 0, translateX: -70 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                transition={{ duration: 1.3 }}
+                viewport={{ once: false }} 
+                className="text-zinc-200 font-semibold text-7xl max-sm:text-5xl"
+              >
+                Abyner Rocha
+              </motion.h2>
+              <motion.h4 
+                initial={{ opacity: 0, translateX: 70 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                transition={{ duration: 1.3 }}
+                viewport={{ once: true }}
+                className="text-zinc-400 font-light text-5xl max-sm:text-2xl"
+              >
+                {languageText.home.sub_header}
+              </motion.h4>
+              <motion.div 
+                initial={{ opacity: 0, translateY: 40 }}
+                animate={{ opacity: 1, translateY: 0 }}
+                transition={{ duration: 1.3 }}
+                viewport={{ once: true }}
+                className="w-full flex justify-end max-sm:justify-center"
+              >
                 <button
-                  className="bg-transparent border-2 border-zinc-600 text-zinc-400 px-4 py-2 rounded-xl cursor-pointer transition-all duration-200 ease-linear hover:bg-zinc-600 hover:text-zinc-100"
+                  className="bg-transparent border-2 border-zinc-600 text-zinc-400 mt-2 px-4 py-2 rounded-xl cursor-pointer transition-all duration-200 ease-linear hover:bg-zinc-600 hover:text-zinc-100"
                   onClick={() => handleScrollTo(scrollElements.find(element => element.id === 'contacts')?.element)}
                 >
-                  Let's work together
+                  {languageText.home.button_text}
                 </button>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -85,7 +173,7 @@ export default function Home() {
           <motion.button
             id="chevron-scroll"
             style={{ translateY: chevronLoopAnimY, opacity: opacityChevronScroll, scale: scaleChevronScroll, cursor: 'pointer' }}
-            onClick={() => handleScrollTo(scrollElements.find(element => element.id === 'about-me')?.element)}
+            onClick={() => handleScrollTo(scrollElements.find(element => element.id === (isMobile ? 'about-me-mobile' : 'about-me'), (isMobile ? 'end' : 'center'))?.element)}
           >
             <FaAngleDoubleDown
               className="text-zinc-500 size-7"
@@ -93,116 +181,141 @@ export default function Home() {
           </motion.button>
         </div>
       </section>
-      <section className="w-full h-[60rem]" >
-        <div className="flex flex-row h-full w-full">
-          <div className="flex flex-1 items-center h-full ml-6" id="about-me">
-            <div className="flex flex-row space-x-4 items-center ml-3">
+      <section className={`${jetBrainsMono.className} w-full h-fit py-10 pr-2flex justify-center `}>
+        <div className="flex flex-row h-full w-full max-sm:flex-col">
+          <div className="flex flex-1 max-sm:flex-col max-sm:space-y-6 items-center h-full ml-6" id="about-me">
+            <article className="flex flex-row w-full space-x-4 items-center md:ml-3">
               <Image
                 src={MyPhoto}
                 alt="My Photo"
-                className="rounded-full h-60 w-60"
+                className="lg:block rounded-full h-60 w-60 max-sm:hidden md:hidden"
               />
-              <div className={`${jetBrainsMono.className} space-y-2 flex flex-col text-zinc-200 w-1/2`}>
-                <h3 className="text-4xl font-bold">Abyner Rocha</h3>
-                <p className="text-md font-thin text-zinc-400">
-                  Dolore proident veniam amet sunt dolore culpa excepteur. Lorem laborum non excepteur non. Veniam nostrud veniam tempor deserunt ea deserunt sit labore elit nulla veniam. Laborum dolore esse ex ex occaecat amet.<br />
-                  Ipsum adipisicing ad sit quis pariatur sunt do do. Consectetur qui esse commodo officia ea anim excepteur consectetur. Do id occaecat voluptate aliqua cillum. Laboris mollit esse duis do occaecat. Exercitation sit officia minim velit amet amet culpa qui. Adipisicing eiusmod in elit deserunt ad reprehenderit eiusmod mollit tempor veniam quis officia ea fugiat.
-                </p>
-              </div>
-            </div>
-          </div>
+              <div className='space-y-2 max-sm:space-y-4 flex flex-col items-center justify-center text-zinc-200 lg:w-1/2 max-sm:w-[90%] '>
+                <div className="flex max-sm:flex-col max-sm:items-center max-sm:space-y-3 max-md:w-full">
+                  <Image
+                    src={MyPhoto}
+                    alt="My Photo"
+                    className="rounded-full h-40 w-40 lg:hidden"
+                  />
+                  <h3 id='about-me-mobile' className="text-4xl font-bold text-center">Abyner Rocha</h3>
+                </div>
 
-          <div className="h-full w-[35%] flex flex-col space-y-10 items-center justify-center pb-14">
-            <h4 className={`${jetBrainsMono.className} text-2xl font-medium text-zinc-100`}>Minhas Tecnologias</h4>
-            <div className="relative rounded-[50%] h-[20rem] w-[20rem] flex items-center justify-center  ">
-              <div className="absolute w-20 h-20 flex items-center justify-center" style={{ top: '10%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <FaReact className="fill-zinc-200 size-20" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <span className="text-zinc-200">React</span>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                <div className="flex flex-col space-y-2">
+                  <p className="text-md md:font-thin text-zinc-400">
+                    {languageText.about_me.description}
+                  </p>
+                  <button
+                    className="bg-transparent border-2 border-zinc-600 text-zinc-400 mt-2 px-4 py-2 rounded-xl cursor-pointer flex flex-row items-center justify-center gap-3 transition-all duration-200 ease-linear hover:bg-zinc-600 hover:text-zinc-100"
+                  >
+                    <FaFileDownload /> {languageText.about_me.cv_button}
+                  </button>
+                </div>
               </div>
-              <div className="absolute flex justify-center items-center w-20 h-20" style={{ top: '50%', right: '10%', transform: 'translate(50%, -50%)' }}>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <FaHtml5 className="fill-zinc-200 size-20" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <span className="text-zinc-200">HTML</span>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+            </article>
+            <aside className="flex flex-col h-full w-full justify-center items-center space-y-4">
+              <h1 className="text-zinc-100 text-3xl font-semibold mb-3">{languageText.about_me.techs_title}</h1>
+
+              {/* Techs */}
+              <div className="w-[90%] h-fit">
+                <div className="flex flex-row flex-wrap justify-center w-full h-full gap-5">
+                  {myTechs.map((tech, index) => {
+                    return (
+                      <div key={index} className="group flex flex-col space-y-2 border text-zinc-400 border-zinc-600 rounded-xl w-64 items-center p-4 cursor-pointer transition-all duration-200 ease-linear lg:hover:mx-4 hover:scale-110 hover:bg-zinc-600 hover:text-zinc-100">
+                        <div className="flex flex-row space-x-2 items-center">
+                          <tech.icon className="size-10" />
+                          <span className="text-xl font-medium">{tech.name}</span>
+                        </div>
+                        <div className="flex flex-row space-x-3 items-center">
+                          {renderTechSkillLevel(tech.skillRating)}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
-              <div className="z-0 absolute flex justify-center items-center w-20 h-20" style={{ bottom: '10%', left: '50%', transform: 'translate(-50%, 50%)' }}>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <FaCss3 className="fill-zinc-200 size-16" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <span className="text-zinc-200">CSS</span>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-              <div className="absolute flex justify-center items-center w-20 h-20" style={{ top: '50%', left: '10%', transform: 'translate(-50%, -50%)' }}>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <SiTypescript className="fill-zinc-200 size-16" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <span className="text-zinc-200">TypeScript</span>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-            </div>
+            </aside>
           </div>
         </div>
       </section>
 
-      <section className="w-full h-[60rem]" id="projects">
-        <div className="flex flex-row items-center justify-center h-full w-full">
-          <Card
-            title="Teste"
-            description="Testaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaae"
-            project={{
-              github: "dsadadas",
-              techs: ['NextJS', 'TailwindCSS', 'TypeScript']
-            }}
-          />
-          <Card
-            title="Teste"
-            description="Teste"
-            project={{
-              github: "dsadadas",
-              techs: ['NextJS', 'TailwindCSS', 'TypeScript']
-            }}
-          />
-          <Card
-            title="Teste"
-            description="Teste"
-            project={{
-              github: "dsadadas",
-              techs: ['NextJS', 'TailwindCSS', 'More']
-            }}
-          />
+      <section className="w-full h-[60rem] flex flex-col justify-center space-y-6" id="projects">
+        <h2 className={`${jetBrainsMono.className} text-zinc-100 font-semibold text-3xl text-center`}>Meus Projetos</h2>
+        <div className="flex gap-6 flex-wrap text-zinc-100 justify-center items-center content-center">
+          {projects && projects.length > 0 && (
+            projects.map((project, index) => {
+              return (
+                <Card
+                  key={index}
+                  title={project.name}
+                  description={project.description}
+                  project={{
+                    image: project.image,
+                    github: project.github,
+                    deploy: project.deploy,
+                    techs: project.techs,
+                    type: project.type
+                  }}
+                />
+              );
+            })
+          )}
         </div>
-
       </section>
 
-      <div className="fixed bottom-4 right-4 flex flex-col">
+      <section className="w-full h-[30rem]" id="contacts">
+        <div className="space-y-4 w-full h-full">
+          <h2 className={`${jetBrainsMono.className} text-zinc-100 font-semibold text-3xl text-center`}>Contatos</h2>
+          <div className="flex flex-row h-full md:justify-center md:items-center gap-4 max-sm:flex-col max-sm:items-center">
+            <span className="flex flex-row space-x-4 h-12 w-52">
+              <a
+                href="https://www.linkedin.com/in/abynerrocha/"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full h-full font-medium flex flex-row items-center justify-center gap-2 bg-transparent border-2 border-[#0e76a8] text-zinc-100 px-4 py-2 rounded-xl cursor-pointer transition-all duration-200 ease-linear hover:text-zinc-100 hover:bg-[#0e76a8]"
+              >
+                <FaLinkedinIn className="size-7" />
+                <span className="text-lg">LinkedIn</span>
+              </a>
+            </span>
+            <span className="flex flex-row space-x-4 h-12 w-52">
+              <a
+                href="https://www.github.com/abynerrocha/"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full h-full font-medium flex flex-row items-center justify-center gap-2 bg-transparent border-2 border-zinc-200 text-zinc-100 px-4 py-2 rounded-xl cursor-pointer transition-all duration-200 ease-linear hover:text-zinc-800 hover:bg-zinc-200"
+              >
+                <FaGithub className="size-7" />
+                <span className="text-lg">Github</span>
+              </a>
+            </span>
+            <span className="flex flex-row space-x-4 h-12 w-52">
+              <a
+                href="https://www.github.com/abynerrocha/"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full h-full font-medium flex flex-row items-center justify-center gap-2 bg-transparent border-2 border-red-600 text-zinc-100 px-4 py-2 rounded-xl cursor-pointer transition-all duration-200 ease-linear hover:text-red-100 hover:bg-red-600"
+              >
+                <MdOutgoingMail className="size-7" />
+                <span className="text-lg">Email</span>
+              </a>
+            </span>
+            <span
+              className="bg-transparent border-2 text-md font-medium border-zinc-400 text-zinc-200 h-12 w-52 rounded-xl cursor-pointer flex flex-row items-center justify-center gap-3 transition-all duration-200 ease-linear hover:bg-zinc-400 hover:text-zinc-700"
+            >
+              <FaFileDownload /> Baixar Currículo
+            </span>
+          </div>
+          <div className="h-fit w-full flex justify-center items-center">
+
+          </div>
+        </div>
+      </section>
+
+      <div className="fixed bottom-4 right-4 flex flex-col sm:bottom-2 gap-4 z-20">
         <motion.span
           id="chevron-scroll-up"
           className="size-16 flex justify-center items-center cursor-pointer"
-          onClick={() => handleScrollTo(scrollElements.find(element => element.id === 'home')?.element)}
+          onClick={() => handleScrollTo(scrollElements.find(element => element.id === 'home')?.element, 'end')}
           style={{
             opacity: scrollToTopOpacity,
             display: scrollToTopDisplay
@@ -212,13 +325,17 @@ export default function Home() {
             className="fill-zinc-500 size-7"
           />
         </motion.span>
-        <span className="group bg-transparent border-2 border-zinc-100 rounded-full size-16 flex justify-center items-center cursor-pointer transition-all duration-200 ease-linear hover:bg-zinc-200">
-          <FaLinkedinIn
-            className="fill-zinc-200 size-7 transition-all duration-200 ease-linear group-hover:fill-zinc-900"
-          />
-        </span>
       </div>
 
+      <footer className="relative flex flex-col items-center border-t border-zinc-600 bottom-0 w-full h-22 p-3">
+        <div>
+          <a target="_blank" className='text-zinc-300 text-sm cursor-pointer hover:underline' href="https://github.com/AbynerRocha/portfolio">Repositório deste site</a>
+        </div>
+        <div className="flex flex-col justify-center items-center h-full w-full">
+          <span className="text-zinc-100 font-semibold">Abyner Rocha - 2025</span>
+          <span className="text-zinc-100 font-normal flex flex-row items-center gap-2">Criado com <FaHeart className="text-zinc-200" /></span>
+        </div>
+      </footer>
     </main>
   );
 }

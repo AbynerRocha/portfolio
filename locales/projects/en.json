@@ -1,0 +1,9 @@
+[
+    {
+        "name": "EvoTraining",
+        "description": "EvoTraining is a mobile app that allows users to create and monitor their weight training workouts.",
+        "type":"mobile",
+        "techs": ["ReactJS", "TypeScript", "NextJS", "MongoDB","TailwindCSS"],
+        "github": "https://github.com/AbynerRocha/evotraining"
+    }
+]
