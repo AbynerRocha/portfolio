@@ -5,9 +5,9 @@ import Image from 'next/image'
 import MyPhoto from '../public/abyner.jpg'
 import { z } from 'zod'
 import { JetBrains_Mono } from 'next/font/google'
-import { m, motion, useMotionValue, useScroll, useTime, useTransform } from 'motion/react'
-import { FaAngleDoubleUp, FaAngleDoubleDown, FaLinkedinIn, FaReact, FaHtml5, FaCss3, FaJs, FaStar, FaPhp, FaHeart, FaDownload, FaFileDownload, FaGithub } from "react-icons/fa";
-import { use, useEffect, useState } from "react";
+import { motion, useScroll, useTime, useTransform } from 'motion/react'
+import { FaAngleDoubleUp, FaAngleDoubleDown, FaLinkedinIn, FaReact, FaHtml5, FaCss3, FaStar, FaPhp, FaHeart, FaFileDownload, FaGithub } from "react-icons/fa";
+import { useEffect, useState } from "react";
 import { SiJavascript, SiTypescript } from "react-icons/si";
 import Card from "@/components/Card";
 import PortuguseLang from "@/locales/pt.json"
@@ -94,8 +94,8 @@ export default function Home() {
   }
 
   function renderTechSkillLevel(level: number) {
-    let darkStars = 5 - level
-    let stars = []
+    const darkStars = 5 - level
+    const stars = []
 
     // White Stars
     for (let i = 0; i < level; i++) {

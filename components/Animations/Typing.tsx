@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
-import { twMerge } from 'tailwind-merge'
 
 type TypingAnimProps = {
   children: string,

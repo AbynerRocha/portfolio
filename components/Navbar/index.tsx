@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { JetBrains_Mono } from 'next/font/google'
 import Image from 'next/image'
