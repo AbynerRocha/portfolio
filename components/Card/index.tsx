@@ -68,7 +68,7 @@ export default function Card({ title, description, project, className }: ICardPr
             return (
               <TooltipProvider key={index}>
                 <Tooltip delayDuration={0}>
-                  <TooltipTrigger className='cursor-default'>
+                  <TooltipTrigger aria-label={tech} className='cursor-default'>
                     <div className='w-8 h-8 border border-zinc-200 text-zinc-200 rounded-full flex items-center justify-center hover:text-zinc-900 hover:bg-zinc-100 transition-all duration-300 ease-in-out'>
                       <TechIcon tech={tech} className='size-5' />
                     </div>
@@ -97,7 +97,7 @@ export default function Card({ title, description, project, className }: ICardPr
                 className="w-9 h-9 rounded-full flex items-center justify-center border border-zinc-100 opacity-0 translate-x-5 group-hover:translate-x-0 group-hover:opacity-100 group hover:bg-zinc-100 transition-all duration-300 ease-in-out"
               >
                 <span className='w-full h-full flex items-center justify-center text-zinc-100 hover:text-zinc-900 duration-300 transition-all ease-in-out'>
-                  <Link target='_blank' href={project.github} passHref>
+                  <Link aria-label={`Github repo from ${title}`} target='_blank' href={project.github} passHref>
                     <FiGithub className="size-5" />
                   </Link>
                 </span>
@@ -108,7 +108,7 @@ export default function Card({ title, description, project, className }: ICardPr
                 className="w-9 h-9 rounded-full flex items-center justify-center border border-zinc-100 opacity-0 translate-x-5 group-hover:translate-x-0 group-hover:opacity-100 group hover:bg-zinc-100 transition-all duration-300 ease-in-out"
               >
                 <span className='w-full h-full flex items-center justify-center text-zinc-100 hover:text-zinc-900 duration-300 transition-all ease-in-out'>
-                  <Link target='_blank' href={project.deploy} passHref>
+                  <Link aria-label={`Deploy url`} target='_blank' href={project.deploy} passHref>
                     <FiExternalLink className="size-5" />
                   </Link>
                 </span>

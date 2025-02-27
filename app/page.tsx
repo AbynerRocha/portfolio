@@ -174,6 +174,7 @@ export default function Home() {
             id="chevron-scroll"
             style={{ translateY: chevronLoopAnimY, opacity: opacityChevronScroll, scale: scaleChevronScroll, cursor: 'pointer' }}
             onClick={() => handleScrollTo(scrollElements.find(element => element.id === (isMobile ? 'about-me-mobile' : 'about-me'), (isMobile ? 'end' : 'center'))?.element)}
+            aria-label="Scroll down"
           >
             <FaAngleDoubleDown
               className="text-zinc-500 size-7"
