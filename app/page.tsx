@@ -142,7 +142,7 @@ export default function Home() {
               >
                 Abyner Rocha
               </motion.h2>
-              <motion.h4 
+              <motion.h3 
                 initial={{ opacity: 0, translateX: 70 }}
                 animate={{ opacity: 1, translateX: 0 }}
                 transition={{ duration: 1.3 }}
@@ -150,7 +150,7 @@ export default function Home() {
                 className="text-zinc-400 font-light text-5xl max-sm:text-2xl"
               >
                 {languageText.home.sub_header}
-              </motion.h4>
+              </motion.h3>
               <motion.div 
                 initial={{ opacity: 0, translateY: 40 }}
                 animate={{ opacity: 1, translateY: 0 }}
