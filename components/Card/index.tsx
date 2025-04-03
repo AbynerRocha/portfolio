@@ -56,7 +56,7 @@ export default function Card({ title, description, project, className }: ICardPr
 
   return (
     <div className={twMerge("group relative m-0 flex h-[26rem] w-96 rounded-xl shadow-xl ring-gray-900/5 ", className)}>
-      <div className="z-10 h-full w-full overflow-hidden rounded-xl border border-gray-200 opacity-80 transition duration-300 ease-in-out group-hover:opacity-100 dark:border-gray-700 dark:opacity-70">
+      <div className="z-10 h-full w-full overflow-hidden rounded-xl border border-gray-700 opacity-80 transition duration-300 ease-in-out group-hover:opacity-100 dark:border-gray-700 dark:opacity-70">
         {project && project.image && <Image alt={`${title} image`} src={project.image} />}
       </div>
       <div className='w-full flex items-center justify-end absolute top-0 -left-5 z-20 m-0 pt-7  p-4 '>
@@ -73,7 +73,7 @@ export default function Card({ title, description, project, className }: ICardPr
                       <TechIcon tech={tech} className='size-5' />
                     </div>
                   </TooltipTrigger>
-                  <TooltipContent >
+                  <TooltipContent>
                     <span className="text-zinc-200">{tech}</span>
                   </TooltipContent>
                 </Tooltip>

@@ -11,8 +11,19 @@
         "button_text": "Let's work together"
     },
     "about_me": {
-        "description": "Dolore proident veniam amet sunt dolore culpa excepteur. Lorem laborum non excepteur non. Veniam nostrud veniam tempor deserunt ea deserunt sit labore elit nulla veniam. Laborum dolore esse ex ex occaecat amet.<br />Ipsum adipisicing ad sit quis pariatur sunt do do. Consectetur qui esse commodo officia ea anim excepteur consectetur. Do id occaecat voluptate aliqua cillum. Laboris mollit esse duis do occaecat. Exercitation sit officia minim velit amet amet culpa qui. Adipisicing eiusmod in elit deserunt ad reprehenderit eiusmod mollit tempor veniam quis officia ea fugiat.",
+        "description": "My name's Abyner Rocha, and I've been teaching myself programming since I was 9 years old. My journey started with Python, driven by curiosity, but I soon fell in love with web development using the classic trio: HTML, CSS, and JavaScript.\nOver the years, I gained experience working with PHP, and today my main focus is building modern and dynamic interfaces using ReactJS. I’m naturally curious and always eager to learn new technologies and improve my skills to create even better solutions.",
         "cv_button": "Download CV",
         "techs_title": "Techs I use"
+    },
+    "projects": {
+        "title": "Projects"
+    },
+    "contacts": {
+        "title": "Contact me",
+        "cv_button": "Download CV"
+    },
+    "footer": {
+        "rep_link": "This website's GitHub repository",
+        "text": "Created with"
     }
 }

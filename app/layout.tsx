@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Portifolio",
@@ -18,6 +19,7 @@ export default function RootLayout({
         className={`antialiased h-screen w-screen bg-zinc-900 overflow-x-hidden scroll-smooth`}
       >
         {children}
+        <Toaster />
         <SpeedInsights />
       </body>
     </html>

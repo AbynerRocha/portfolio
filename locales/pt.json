@@ -11,8 +11,19 @@
         "button_text": "Vamos trabalhar juntos"
     },
     "about_me": {
-        "description": "Dolore proident veniam amet sunt dolore culpa excepteur. Lorem laborum non excepteur non. Veniam nostrud veniam tempor deserunt ea deserunt sit labore elit nulla veniam. Laborum dolore esse ex ex occaecat amet.<br />Ipsum adipisicing ad sit quis pariatur sunt do do. Consectetur qui esse commodo officia ea anim excepteur consectetur. Do id occaecat voluptate aliqua cillum. Laboris mollit esse duis do occaecat. Exercitation sit officia minim velit amet amet culpa qui. Adipisicing eiusmod in elit deserunt ad reprehenderit eiusmod mollit tempor veniam quis officia ea fugiat.",
+        "description": "Me chamo Abyner Rocha e estudo programação de forma autodidata desde os 9 anos de idade. Minha jornada começou com Python, movido pela curiosidade, mas logo descobri minha paixão pelo desenvolvimento web com as clássicas tecnologias: HTML, CSS e JavaScript.\nAo longo do tempo, aprofundei meus conhecimentos em PHP, onde adquiri uma boa experiência, e atualmente foco meu trabalho em ReactJS, desenvolvendo interfaces modernas e dinâmicas. Sou curioso por natureza e estou sempre em busca de aprender novas tecnologias e aprimorar minhas habilidades para criar soluções cada vez melhores.",
         "cv_button": "Baixar CV",
         "techs_title": "Tecnologias que eu uso"
+    },
+    "projects": {
+        "title": "Projetos"
+    },
+    "contacts": {
+        "title": "Me contate",
+        "cv_button": "Baixar CV"
+    },
+    "footer": {
+        "rep_link": "Repositório no GitHub deste site",
+        "text": "Criado com"
     }
 }

@@ -7,7 +7,7 @@ import { z } from 'zod'
 import { JetBrains_Mono } from 'next/font/google'
 import { motion, useScroll, useTime, useTransform } from 'motion/react'
 import { FaAngleDoubleUp, FaAngleDoubleDown, FaLinkedinIn, FaReact, FaHtml5, FaCss3, FaStar, FaPhp, FaHeart, FaFileDownload, FaGithub } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SiJavascript, SiTypescript } from "react-icons/si";
 import Card from "@/components/Card";
 import PortuguseLang from "@/locales/pt.json"
@@ -17,6 +17,7 @@ import ProjectsPT from "@/locales/projects/pt.json";
 import ProjectsEN from "@/locales/projects/en.json";
 import { MdOutgoingMail } from "react-icons/md";
 import TypingAnim from "@/components/Animations/Typing";
+import { toast } from "sonner";
 
 const jetBrainsMono = JetBrains_Mono({ subsets: ['latin'] })
 
@@ -24,6 +25,8 @@ type Project = z.infer<typeof projectSchema>
 
 const projectsPT = projectSchema.array().parse(ProjectsPT)
 const projectsEN = projectSchema.array().parse(ProjectsEN)
+
+const myContactEmail = 'abynerr.rocha@gmail.com'
 
 const myTechs = [
   { name: 'ReactJS', skillRating: 4, icon: FaReact },
@@ -40,6 +43,7 @@ interface ISections {
 }
 
 export default function Home() {
+  const scrollRef = useRef(null)
   const [isMobile, setIsMobile] = useState(false)
   const [language, setLanguage] = useState<'en' | 'pt'>('pt')
   const [languageText, setLanguageText] = useState<typeof PortuguseLang>(PortuguseLang)
@@ -110,8 +114,22 @@ export default function Home() {
     return stars
   }
 
+  function handleDownloadCV() {
+    window.open('../CV_AbynerBezerra.pdf', '_blank')
+  }
+
+  function handleEmail() {
+    isMobile ? window.open(`mailto:${myContactEmail}`, '_blank')
+      : navigator.clipboard.writeText(myContactEmail).then(() => {
+        toast.success('Email copiado para a área de transferência')
+      })
+        .catch(() => {
+          toast.error('Erro ao copiar email para a área de transferência')
+        })
+  }
+
   return (
-    <main className="h-full w-full">
+    <main ref={scrollRef} className="h-full w-full">
       <Navbar
         elements={scrollElements}
         language={language}
@@ -125,24 +143,24 @@ export default function Home() {
 
             <div className="flex flex-col justify-center h-full w-full space-y-2">
               <div className="flex flesx-row items-end space-x-1">
-                <TypingAnim 
-                  blink 
-                  speed={80} 
+                <TypingAnim
+                  blink
+                  speed={80}
                   className={`${jetBrainsMono.className} text-zinc-500 text-lg`}
                 >
                   {languageText.home.sub_text}
                 </TypingAnim>
               </div>
-              <motion.h2 
+              <motion.h2
                 initial={{ opacity: 0, translateX: -70 }}
                 animate={{ opacity: 1, translateX: 0 }}
                 transition={{ duration: 1.3 }}
-                viewport={{ once: false }} 
+                viewport={{ once: false }}
                 className="text-zinc-200 font-semibold text-7xl max-sm:text-5xl"
               >
                 Abyner Rocha
               </motion.h2>
-              <motion.h3 
+              <motion.h3
                 initial={{ opacity: 0, translateX: 70 }}
                 animate={{ opacity: 1, translateX: 0 }}
                 transition={{ duration: 1.3 }}
@@ -151,7 +169,7 @@ export default function Home() {
               >
                 {languageText.home.sub_header}
               </motion.h3>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, translateY: 40 }}
                 animate={{ opacity: 1, translateY: 0 }}
                 transition={{ duration: 1.3 }}
@@ -182,15 +200,25 @@ export default function Home() {
           </motion.button>
         </div>
       </section>
-      <section className={`${jetBrainsMono.className} w-full h-fit py-10 pr-2flex justify-center `}>
+      <motion.section  
+        className={`${jetBrainsMono.className} w-full h-fit py-10 pr-2flex justify-center`}
+        initial={{ opacity: 0, translateY: 10 }}
+        whileInView={{ opacity: 1, translateY: 0 }}
+      >
         <div className="flex flex-row h-full w-full max-sm:flex-col">
           <div className="flex flex-1 max-sm:flex-col max-sm:space-y-6 items-center h-full ml-6" id="about-me">
             <article className="flex flex-row w-full space-x-4 items-center md:ml-3">
-              <Image
-                src={MyPhoto}
-                alt="My Photo"
-                className="lg:block rounded-full h-60 w-60 max-sm:hidden md:hidden"
-              />
+              <motion.span
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ root: scrollRef, once: true }}
+              >
+                <Image
+                  src={MyPhoto}
+                  alt="My Photo"
+                  className="lg:block rounded-full h-60 w-60 max-sm:hidden md:hidden"
+                />
+              </motion.span>
               <div className='space-y-2 max-sm:space-y-4 flex flex-col items-center justify-center text-zinc-200 lg:w-1/2 max-sm:w-[90%] '>
                 <div className="flex max-sm:flex-col max-sm:items-center max-sm:space-y-3 max-md:w-full">
                   <Image
@@ -202,14 +230,20 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col space-y-2">
-                  <p className="text-md md:font-thin text-zinc-400">
-                    {languageText.about_me.description}
-                  </p>
-                  <button
+                  {languageText.about_me.description.split('\n').map((line, index) => (
+                    <p key={index} className="text-md md:font-thin text-zinc-400">
+                      {line}
+                    </p>
+                  ))}
+                  <motion.button
                     className="bg-transparent border-2 border-zinc-600 text-zinc-400 mt-2 px-4 py-2 rounded-xl cursor-pointer flex flex-row items-center justify-center gap-3 transition-all duration-200 ease-linear hover:bg-zinc-600 hover:text-zinc-100"
+                    onClick={handleDownloadCV}
+                    initial={{ opacity: 0, translateY: 50 }}
+                    whileInView={{ opacity: 1, translateY: 0 }}
+                    viewport={{ root: scrollRef, once: true }}
                   >
                     <FaFileDownload /> {languageText.about_me.cv_button}
-                  </button>
+                  </motion.button>
                 </div>
               </div>
             </article>
@@ -237,10 +271,10 @@ export default function Home() {
             </aside>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       <section className="w-full h-[60rem] flex flex-col justify-center space-y-6" id="projects">
-        <h2 className={`${jetBrainsMono.className} text-zinc-100 font-semibold text-3xl text-center`}>Meus Projetos</h2>
+        <h2 className={`${jetBrainsMono.className} text-zinc-100 font-semibold text-3xl text-center`}>{languageText.projects.title}</h2>
         <div className="flex gap-6 flex-wrap text-zinc-100 justify-center items-center content-center">
           {projects && projects.length > 0 && (
             projects.map((project, index) => {
@@ -265,7 +299,7 @@ export default function Home() {
 
       <section className="w-full h-[30rem]" id="contacts">
         <div className="space-y-4 w-full h-full">
-          <h2 className={`${jetBrainsMono.className} text-zinc-100 font-semibold text-3xl text-center`}>Contatos</h2>
+          <h2 className={`${jetBrainsMono.className} text-zinc-100 font-semibold text-3xl text-center`}>{languageText.contacts.title}</h2>
           <div className="flex flex-row h-full md:justify-center md:items-center gap-4 max-sm:flex-col max-sm:items-center">
             <span className="flex flex-row space-x-4 h-12 w-52">
               <a
@@ -290,21 +324,20 @@ export default function Home() {
               </a>
             </span>
             <span className="flex flex-row space-x-4 h-12 w-52">
-              <a
-                href="https://www.github.com/abynerrocha/"
-                target="_blank"
-                rel="noreferrer"
+              <button
                 className="w-full h-full font-medium flex flex-row items-center justify-center gap-2 bg-transparent border-2 border-red-600 text-zinc-100 px-4 py-2 rounded-xl cursor-pointer transition-all duration-200 ease-linear hover:text-red-100 hover:bg-red-600"
+                onClick={handleEmail}
               >
                 <MdOutgoingMail className="size-7" />
                 <span className="text-lg">Email</span>
-              </a>
+              </button>
             </span>
-            <span
+            <motion.button
               className="bg-transparent border-2 text-md font-medium border-zinc-400 text-zinc-200 h-12 w-52 rounded-xl cursor-pointer flex flex-row items-center justify-center gap-3 transition-all duration-200 ease-linear hover:bg-zinc-400 hover:text-zinc-700"
+              onClick={handleDownloadCV}
             >
-              <FaFileDownload /> Baixar Currículo
-            </span>
+              <FaFileDownload /> {languageText.contacts.cv_button}
+            </motion.button>
           </div>
           <div className="h-fit w-full flex justify-center items-center">
 
@@ -330,11 +363,11 @@ export default function Home() {
 
       <footer className="relative flex flex-col items-center border-t border-zinc-600 bottom-0 w-full h-22 p-3">
         <div>
-          <a target="_blank" className='text-zinc-300 text-sm cursor-pointer hover:underline' href="https://github.com/AbynerRocha/portfolio">Repositório deste site</a>
+          <a target="_blank" className='text-zinc-300 text-sm cursor-pointer hover:underline' href="https://github.com/AbynerRocha/portfolio">{languageText.footer.rep_link}</a>
         </div>
         <div className="flex flex-col justify-center items-center h-full w-full">
-          <span className="text-zinc-100 font-semibold">Abyner Rocha - 2025</span>
-          <span className="text-zinc-100 font-normal flex flex-row items-center gap-2">Criado com <FaHeart className="text-zinc-200" /></span>
+          <span className="text-zinc-100 font-semibold">Abyner Rocha - {new Date().getFullYear()}</span>
+          <span className="text-zinc-100 font-normal flex flex-row items-center gap-2">{languageText.footer.text} <FaHeart className="text-zinc-200" /></span>
         </div>
       </footer>
     </main>

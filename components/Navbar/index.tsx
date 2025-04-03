@@ -38,7 +38,7 @@ export default function Navbar({ elements, language, onLanguageChange, isMobile 
   return (
     <nav className='z-50 fixed top-0 text-zinc-100 w-full h-fit p-2 backdrop-blur-md '>
       {/* Desktop Menu */}
-      <div className="lg:flex flex-row h-20 items-center justify-between w-full mx-3 max-sm:hidden md:hidden">
+      <div className="lg:flex flex-row items-center justify-between pt-3 w-full mx-3 max-sm:hidden md:hidden">
         <div>
           <span
             onClick={() => handleScrollTo(elements.find(e => e.id === 'home')?.element)}
@@ -50,28 +50,28 @@ export default function Navbar({ elements, language, onLanguageChange, isMobile 
 
         <div className='flex flex-1 justify-end items-center'>
           <ul className={`${jetBrainsMono.className} flex row space-x-5 mr-4`}>
-            <li className='flex h-12 w-fit px-6 py-1 space-x-2 border rounded-xl border-zinc-800 justify-center items-center text-zinc-300 font-medium text-md cursor-pointer transition-all duration-200 ease-linear hover:text-zinc-100 hover:border-zinc-600'>
+            <li className='flex h-12 w-fit px-6 py-1 space-x-2 border rounded-xl border-zinc-700 justify-center items-center text-zinc-300 font-medium text-md cursor-pointer transition-all duration-200 ease-linear hover:text-zinc-100 hover:border-zinc-600'>
               <span className='text-zinc-500'>01.</span>
               <span onClick={() => handleScrollTo(elements.find(e => e.id === 'home')?.element)}>
-                <TypingAnim speed={120}>{langText.navbar.home}</TypingAnim>
+                <TypingAnim speed={76}>{langText.navbar.home}</TypingAnim>
               </span>
             </li>
-            <li className='flex h-12 w-fit px-6 py-1 space-x-2 border rounded-xl border-zinc-800 justify-center items-center text-zinc-300 font-medium text-md cursor-pointer transition-all duration-200 ease-linear hover:text-zinc-100 hover:border-zinc-600'>
+            <li className='flex h-12 w-fit px-6 py-1 space-x-2 border rounded-xl border-zinc-700 justify-center items-center text-zinc-300 font-medium text-md cursor-pointer transition-all duration-200 ease-linear hover:text-zinc-100 hover:border-zinc-600'>
               <span className='text-zinc-500'>02.</span>
               <span onClick={() => handleScrollTo(elements.find(e => e.id === (isMobile ? 'my-photo-mobile' : 'about-me'))?.element)}>
-                <TypingAnim speed={120}>{langText.navbar.about_me}</TypingAnim>
+                <TypingAnim speed={76}>{langText.navbar.about_me}</TypingAnim>
               </span>
             </li>
-            <li className='flex h-12 w-fit px-6 py-1 space-x-2 border rounded-xl border-zinc-800 justify-center items-center text-zinc-300 font-medium text-md cursor-pointer transition-all duration-200 ease-linear hover:text-zinc-100 hover:border-zinc-600'>
+            <li className='flex h-12 w-fit px-6 py-1 space-x-2 border rounded-xl border-zinc-700 justify-center items-center text-zinc-300 font-medium text-md cursor-pointer transition-all duration-200 ease-linear hover:text-zinc-100 hover:border-zinc-600'>
               <span className='text-zinc-500'>03.</span>
               <span onClick={() => handleScrollTo(elements.find(e => e.id === 'projects')?.element)}>
-                <TypingAnim speed={120}>{langText.navbar.projects}</TypingAnim>
+                <TypingAnim speed={76}>{langText.navbar.projects}</TypingAnim>
               </span>
             </li>
-            <li className='flex h-12 w-fit px-6 py-1 space-x-2 border rounded-xl border-zinc-800 justify-center items-center text-zinc-300 font-medium text-md cursor-pointer transition-all duration-200 ease-linear hover:text-zinc-100 hover:border-zinc-600'>
+            <li className='flex h-12 w-fit px-6 py-1 space-x-2 border rounded-xl border-zinc-700 justify-center items-center text-zinc-300 font-medium text-md cursor-pointer transition-all duration-200 ease-linear hover:text-zinc-100 hover:border-zinc-600'>
               <span className='text-zinc-500'>04.</span>
               <span onClick={() => handleScrollTo(elements.find(e => e.id === 'contacts')?.element)}>
-                <TypingAnim speed={120}>{langText.navbar.contact}</TypingAnim>
+                <TypingAnim speed={76}>{langText.navbar.contact}</TypingAnim>
               </span>
             </li>
           </ul>
