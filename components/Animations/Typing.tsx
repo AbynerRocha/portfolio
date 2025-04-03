@@ -7,7 +7,7 @@ type TypingAnimProps = {
   children: string,
   speed?: number,
   className?: string,
-  blink?: boolean,
+  blink?: boolean
 }
 
 export default function TypingAnim({ children, className, speed, blink }: TypingAnimProps) {

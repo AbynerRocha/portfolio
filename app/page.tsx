@@ -209,9 +209,10 @@ export default function Home() {
           <div className="flex flex-1 max-sm:flex-col max-sm:space-y-6 items-center h-full ml-6" id="about-me">
             <article className="flex flex-row w-full space-x-4 items-center md:ml-3">
               <motion.span
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
+                initial={{ opacity: 0, translateX: -80 }}
+                whileInView={{ opacity: 1, translateX: 0 }}
                 viewport={{ root: scrollRef, once: true }}
+                transition={{ duration: 1.3 }}
               >
                 <Image
                   src={MyPhoto}
@@ -226,15 +227,28 @@ export default function Home() {
                     alt="My Photo"
                     className="rounded-full h-40 w-40 lg:hidden"
                   />
-                  <h3 id='about-me-mobile' className="text-4xl font-bold text-center">Abyner Rocha</h3>
+                  <h3 id='about-me-mobile' className="text-4xl font-bold text-center">
+                    <TypingAnim
+                      speed={80}
+                    >
+                      Abyner Rocha
+                    </TypingAnim>
+                  </h3>
                 </div>
 
                 <div className="flex flex-col space-y-2">
-                  {languageText.about_me.description.split('\n').map((line, index) => (
-                    <p key={index} className="text-md md:font-thin text-zinc-400">
-                      {line}
-                    </p>
-                  ))}
+                  <motion.span 
+                    initial={{ opacity: 0, translateX: 50 }}
+                    whileInView={{ opacity: 1, translateX: 0 }}
+                    viewport={{ root: scrollRef, once: true }}
+                    transition={{ duration: 1.3 }}
+                  >
+                    {languageText.about_me.description.split('\n').map((line, index) => (
+                      <p key={index} className="text-md md:font-thin text-zinc-400">
+                        {line}
+                      </p>
+                    ))}
+                  </motion.span>
                   <motion.button
                     className="bg-transparent border-2 border-zinc-600 text-zinc-400 mt-2 px-4 py-2 rounded-xl cursor-pointer flex flex-row items-center justify-center gap-3 transition-all duration-200 ease-linear hover:bg-zinc-600 hover:text-zinc-100"
                     onClick={handleDownloadCV}
@@ -248,14 +262,26 @@ export default function Home() {
               </div>
             </article>
             <aside className="flex flex-col h-full w-full justify-center items-center space-y-4">
-              <h1 className="text-zinc-100 text-3xl font-semibold mb-3">{languageText.about_me.techs_title}</h1>
+              <h1 className="text-zinc-100 text-3xl font-semibold mb-3">
+                <TypingAnim
+                  speed={80}
+                >
+                  {languageText.about_me.techs_title}
+                </TypingAnim>
+              </h1>
 
               {/* Techs */}
               <div className="w-[90%] h-fit">
                 <div className="flex flex-row flex-wrap justify-center w-full h-full gap-5">
                   {myTechs.map((tech, index) => {
                     return (
-                      <div key={index} className="group flex flex-col space-y-2 border text-zinc-400 border-zinc-600 rounded-xl w-64 items-center p-4 cursor-pointer transition-all duration-200 ease-linear lg:hover:mx-4 hover:scale-110 hover:bg-zinc-600 hover:text-zinc-100">
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ root: scrollRef, once: true }}
+                        transition={{ duration: 0.7, delay: index * 0.3 }}
+                        key={index} 
+                        className="group flex flex-col space-y-2 border text-zinc-400 border-zinc-600 rounded-xl w-64 items-center p-4 cursor-pointer transition-all duration-200 ease-linear lg:hover:mx-4 hover:scale-110 hover:bg-zinc-600 hover:text-zinc-100">
                         <div className="flex flex-row space-x-2 items-center">
                           <tech.icon className="size-10" />
                           <span className="text-xl font-medium">{tech.name}</span>
@@ -263,7 +289,7 @@ export default function Home() {
                         <div className="flex flex-row space-x-3 items-center">
                           {renderTechSkillLevel(tech.skillRating)}
                         </div>
-                      </div>
+                      </motion.div>
                     )
                   })}
                 </div>
@@ -279,18 +305,25 @@ export default function Home() {
           {projects && projects.length > 0 && (
             projects.map((project, index) => {
               return (
-                <Card
+                <motion.span
                   key={index}
-                  title={project.name}
-                  description={project.description}
-                  project={{
-                    image: project.image,
-                    github: project.github,
-                    deploy: project.deploy,
-                    techs: project.techs,
-                    type: project.type
-                  }}
-                />
+                  initial={{ opacity: 0, translateX: -100 }}
+                  whileInView={{ opacity: 1, translateX: 0 }}
+                  viewport={{ root: scrollRef, once: true }}
+                  transition={{ duration: 1.1, delay: index * 0.2 }}
+                >
+                  <Card
+                    title={project.name}
+                    description={project.description}
+                    project={{
+                      image: project.image,
+                      github: project.github,
+                      deploy: project.deploy,
+                      techs: project.techs,
+                      type: project.type
+                    }}
+                  />
+                </motion.span>
               );
             })
           )}
@@ -301,7 +334,13 @@ export default function Home() {
         <div className="space-y-4 w-full h-full">
           <h2 className={`${jetBrainsMono.className} text-zinc-100 font-semibold text-3xl text-center`}>{languageText.contacts.title}</h2>
           <div className="flex flex-row h-full md:justify-center md:items-center gap-4 max-sm:flex-col max-sm:items-center">
-            <span className="flex flex-row space-x-4 h-12 w-52">
+            <motion.span 
+              className="flex flex-row space-x-4 h-12 w-52"
+              initial={{ opacity: 0, translateX: -100 }}
+              whileInView={{ opacity: 1, translateX: 0 }}
+              viewport={{ root: scrollRef, once: true }}
+              transition={{ duration: 1.1, delay: 0 }}
+            >
               <a
                 href="https://www.linkedin.com/in/abynerrocha/"
                 target="_blank"
@@ -311,8 +350,14 @@ export default function Home() {
                 <FaLinkedinIn className="size-7" />
                 <span className="text-lg">LinkedIn</span>
               </a>
-            </span>
-            <span className="flex flex-row space-x-4 h-12 w-52">
+            </motion.span>
+            <motion.span 
+              className="flex flex-row space-x-4 h-12 w-52"
+              initial={{ opacity: 0, translateY: -100 }}
+              whileInView={{ opacity: 1, translateY: 0 }}
+              viewport={{ root: scrollRef, once: true }}
+              transition={{ duration: 1.1, delay: 0.2 }}
+            >
               <a
                 href="https://www.github.com/abynerrocha/"
                 target="_blank"
@@ -322,8 +367,14 @@ export default function Home() {
                 <FaGithub className="size-7" />
                 <span className="text-lg">Github</span>
               </a>
-            </span>
-            <span className="flex flex-row space-x-4 h-12 w-52">
+            </motion.span>
+            <motion.span 
+              className="flex flex-row space-x-4 h-12 w-52"
+              initial={{ opacity: 0, translateY: 100 }}
+              whileInView={{ opacity: 1, translateY: 0 }}
+              viewport={{ root: scrollRef, once: true }}
+              transition={{ duration: 1.1, delay: 0.4 }}
+            >
               <button
                 className="w-full h-full font-medium flex flex-row items-center justify-center gap-2 bg-transparent border-2 border-red-600 text-zinc-100 px-4 py-2 rounded-xl cursor-pointer transition-all duration-200 ease-linear hover:text-red-100 hover:bg-red-600"
                 onClick={handleEmail}
@@ -331,10 +382,14 @@ export default function Home() {
                 <MdOutgoingMail className="size-7" />
                 <span className="text-lg">Email</span>
               </button>
-            </span>
+            </motion.span>
             <motion.button
               className="bg-transparent border-2 text-md font-medium border-zinc-400 text-zinc-200 h-12 w-52 rounded-xl cursor-pointer flex flex-row items-center justify-center gap-3 transition-all duration-200 ease-linear hover:bg-zinc-400 hover:text-zinc-700"
               onClick={handleDownloadCV}
+              initial={{ opacity: 0, translateX: 100 }}
+              whileInView={{ opacity: 1, translateX: 0 }}
+              viewport={{ root: scrollRef, once: true }}
+              transition={{ duration: 1.1, delay: 0.6 }}
             >
               <FaFileDownload /> {languageText.contacts.cv_button}
             </motion.button>
