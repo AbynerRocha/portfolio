@@ -13,7 +13,7 @@ import { projectSchema } from '@/@types/projects'
 import { techsSchema } from '@/@types/tech'
 import { MdOutlineWebAsset } from 'react-icons/md'
 import { twMerge } from 'tailwind-merge'
-import { z } from 'zod'
+import * as z from 'zod/v4'
 
 type Project = z.infer<typeof projectSchema>
 type Tech = z.infer<typeof techsSchema>
@@ -55,9 +55,9 @@ export default function Card({ title, description, project, className }: ICardPr
   }
 
   return (
-    <div className={twMerge("group relative m-0 flex h-[26rem] w-96 rounded-xl shadow-xl ring-gray-900/5 ", className)}>
-      <div className="z-10 h-full w-full overflow-hidden rounded-xl border border-gray-700 opacity-80 transition duration-300 ease-in-out group-hover:opacity-100 dark:border-gray-700 dark:opacity-70">
-        {project && project.image && <Image alt={`${title} image`} src={project.image} />}
+    <div className={twMerge("group relative m-0 flex h-[26rem] w-96 rounded-xl shadow-xl", className)}>
+      <div className="z-10 h-full w-full overflow-hidden rounded-xl border-2 border-gray-700 opacity-50 transition duration-300 ease-in-out group-hover:opacity-10">
+        {project && project.image && <Image alt={`${title} image`} src={project.image} width={384} height={416} className='transition duration-300 ease-in-out  scale-125 group-hover:scale-100' />}
       </div>
       <div className='w-full flex items-center justify-end absolute top-0 -left-5 z-20 m-0 pt-7  p-4 '>
         <div className='flex flex-row items-center gap-5 group-hover:scale-110 group-hover:-translate-x-3 group-hover:translate-y-2 transition-all duration-300 ease-in-out'>
@@ -94,7 +94,7 @@ export default function Card({ title, description, project, className }: ICardPr
           <div className='flex flex-col flex-1 justify-center items-end gap-3'>
             {project && project.github !== '' && (
               <div
-                className="w-9 h-9 rounded-full flex items-center justify-center border border-zinc-100 opacity-0 translate-x-5 group-hover:translate-x-0 group-hover:opacity-100 group hover:bg-zinc-100 transition-all duration-300 ease-in-out"
+                className="w-10 h-10 rounded-full flex items-center justify-center border border-zinc-100 opacity-0 translate-x-5 group-hover:translate-x-0 group-hover:opacity-100 group hover:bg-zinc-100 transition-all duration-300 ease-in-out"
               >
                 <span className='w-full h-full flex items-center justify-center text-zinc-100 hover:text-zinc-900 duration-300 transition-all ease-in-out'>
                   <Link aria-label={`Github repo from ${title}`} target='_blank' href={project.github} passHref>
@@ -105,7 +105,7 @@ export default function Card({ title, description, project, className }: ICardPr
             )}
             {project?.deploy && project.deploy !== '' && (
               <div
-                className="w-9 h-9 rounded-full flex items-center justify-center border border-zinc-100 opacity-0 translate-x-5 group-hover:translate-x-0 group-hover:opacity-100 group hover:bg-zinc-100 transition-all duration-300 ease-in-out"
+                className="w-10 h-10 rounded-full flex items-center justify-center border border-zinc-100 opacity-0 translate-x-5 group-hover:translate-x-0 group-hover:opacity-100 group hover:bg-zinc-100 transition-all duration-300 ease-in-out"
               >
                 <span className='w-full h-full flex items-center justify-center text-zinc-100 hover:text-zinc-900 duration-300 transition-all ease-in-out'>
                   <Link aria-label={`Deploy url`} target='_blank' href={project.deploy} passHref>

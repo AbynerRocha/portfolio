@@ -3,11 +3,11 @@
 import Navbar from "@/components/Navbar";
 import Image from 'next/image'
 import MyPhoto from '../public/abyner.jpg'
-import { z } from 'zod'
+import * as z from 'zod/v4'
 import { JetBrains_Mono } from 'next/font/google'
 import { motion, useScroll, useTime, useTransform } from 'motion/react'
 import { FaAngleDoubleUp, FaAngleDoubleDown, FaLinkedinIn, FaReact, FaHtml5, FaCss3, FaStar, FaPhp, FaHeart, FaFileDownload, FaGithub } from "react-icons/fa";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { SiJavascript, SiTypescript } from "react-icons/si";
 import Card from "@/components/Card";
 import PortuguseLang from "@/locales/pt.json"
@@ -18,6 +18,7 @@ import ProjectsEN from "@/locales/projects/en.json";
 import { MdOutgoingMail } from "react-icons/md";
 import TypingAnim from "@/components/Animations/Typing";
 import { toast } from "sonner";
+import { env } from "@/lib/dotenv";
 
 const jetBrainsMono = JetBrains_Mono({ subsets: ['latin'] })
 
@@ -50,6 +51,25 @@ export default function Home() {
   const [scrollElements, setScrollElements] = useState<ISections[]>([])
   const [projects, setProjects] = useState<Project[]>(projectsPT)
 
+  const renderTechSkillLevel = useMemo(() => {
+    return (level: number) => {
+      const darkStars = 5 - level
+      const stars = []
+
+      // White Stars
+      for (let i = 0; i < level; i++) {
+        stars.push(<FaStar key={i + level} className="size-5 text-zinc-400 group-hover:text-zinc-200 transition-all ease-linear duration-200" />)
+      }
+
+      // Dark Stars
+      for (let i = 0; i < darkStars; i++) {
+        stars.push(<FaStar key={i} className="size-5 text-zinc-700" />)
+      }
+
+      return stars
+    }
+  }, [])
+
   // Animations
 
   const distance = 10
@@ -74,7 +94,6 @@ export default function Home() {
     ])
 
 
-
     setIsMobile((window.innerWidth <= 768))
 
     window.addEventListener('resize', () => setIsMobile((window.innerWidth <= 768)))
@@ -97,35 +116,26 @@ export default function Home() {
     setProjects(lang === 'en' ? projectsEN : projectsPT)
   }
 
-  function renderTechSkillLevel(level: number) {
-    const darkStars = 5 - level
-    const stars = []
-
-    // White Stars
-    for (let i = 0; i < level; i++) {
-      stars.push(<FaStar key={i + level} className="size-5 text-zinc-400 group-hover:text-zinc-200 transition-all ease-linear duration-200" />)
-    }
-
-    // Dark Stars
-    for (let i = 0; i < darkStars; i++) {
-      stars.push(<FaStar key={i} className="size-5 text-zinc-700" />)
-    }
-
-    return stars
-  }
-
   function handleDownloadCV() {
     window.open('../CV_AbynerBezerra.pdf', '_blank')
   }
 
   function handleEmail() {
-    isMobile ? window.open(`mailto:${myContactEmail}`, '_blank')
-      : navigator.clipboard.writeText(myContactEmail).then(() => {
-        toast.success('Email copiado para a área de transferência')
-      })
-        .catch(() => {
-          toast.error('Erro ao copiar email para a área de transferência')
-        })
+    // Se estiver no mobile, abre o app de email
+    
+    if (isMobile) {
+      window.open(`mailto:${myContactEmail}`, '_blank')
+      return
+    }
+    
+    // Se estiver no desktop, copia o email para a área de transferência
+    
+    navigator.clipboard.writeText(myContactEmail).then(() => {
+      toast.success('Email copiado para a área de transferência')
+    })
+    .catch(() => {
+      toast.error('Erro ao copiar email para a área de transferência')
+    })
   }
 
   return (
@@ -200,7 +210,7 @@ export default function Home() {
           </motion.button>
         </div>
       </section>
-      <motion.section  
+      <motion.section
         className={`${jetBrainsMono.className} w-full h-fit py-10 pr-2flex justify-center`}
         initial={{ opacity: 0, translateY: 10 }}
         whileInView={{ opacity: 1, translateY: 0 }}
@@ -237,7 +247,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col space-y-2">
-                  <motion.span 
+                  <motion.span
                     initial={{ opacity: 0, translateX: 50 }}
                     whileInView={{ opacity: 1, translateX: 0 }}
                     viewport={{ root: scrollRef, once: true }}
@@ -280,7 +290,7 @@ export default function Home() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ root: scrollRef, once: true }}
                         transition={{ duration: 0.7, delay: index * 0.3 }}
-                        key={index} 
+                        key={index}
                         className="group flex flex-col space-y-2 border text-zinc-400 border-zinc-600 rounded-xl w-64 items-center p-4 cursor-pointer transition-all duration-200 ease-linear lg:hover:mx-4 hover:scale-110 hover:bg-zinc-600 hover:text-zinc-100">
                         <div className="flex flex-row space-x-2 items-center">
                           <tech.icon className="size-10" />
@@ -316,7 +326,7 @@ export default function Home() {
                     title={project.name}
                     description={project.description}
                     project={{
-                      image: project.image,
+                      image: env.NEXT_PUBLIC_URL + project.image,
                       github: project.github,
                       deploy: project.deploy,
                       techs: project.techs,
@@ -332,9 +342,9 @@ export default function Home() {
 
       <section className="w-full h-[30rem]" id="contacts">
         <div className="space-y-4 w-full h-full">
-          <h2 className={`${jetBrainsMono.className} text-zinc-100 font-semibold text-3xl text-center`}>{languageText.contacts.title}</h2>
+          <h2 className={`${jetBrainsMono.className} text-zinc-100 font-semibold text-3xl text-center`}>{languageText.contacts.title}</h2>w 
           <div className="flex flex-row h-full md:justify-center md:items-center gap-4 max-sm:flex-col max-sm:items-center">
-            <motion.span 
+            <motion.span
               className="flex flex-row space-x-4 h-12 w-52"
               initial={{ opacity: 0, translateX: -100 }}
               whileInView={{ opacity: 1, translateX: 0 }}
@@ -351,7 +361,7 @@ export default function Home() {
                 <span className="text-lg">LinkedIn</span>
               </a>
             </motion.span>
-            <motion.span 
+            <motion.span
               className="flex flex-row space-x-4 h-12 w-52"
               initial={{ opacity: 0, translateY: -100 }}
               whileInView={{ opacity: 1, translateY: 0 }}
@@ -368,7 +378,7 @@ export default function Home() {
                 <span className="text-lg">Github</span>
               </a>
             </motion.span>
-            <motion.span 
+            <motion.span
               className="flex flex-row space-x-4 h-12 w-52"
               initial={{ opacity: 0, translateY: 100 }}
               whileInView={{ opacity: 1, translateY: 0 }}

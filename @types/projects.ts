@@ -1,5 +1,5 @@
 import { techsSchema } from "./tech"
-import { z } from "zod"
+import * as z from "zod/v4"
 
 
 export const projectSchema = z.object({
@@ -7,7 +7,7 @@ export const projectSchema = z.object({
     description: z.string(),
     type: z.union([z.literal('web'), z.literal('mobile')]),
     image: z.string().optional(),
-    github: z.string().url(),
-    deploy: z.string().url().optional(),
+    github: z.url(),
+    deploy: z.url().optional(),
     techs: z.array(techsSchema)
 })
