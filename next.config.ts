@@ -3,7 +3,20 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['localhost', '10.0.2.2', 'abynerrocha.vercel.app'],
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "localhost",
+      },
+      {
+        protocol: "http",
+        hostname: "10.0.2.2",
+      },
+      {
+        protocol: "https",
+        hostname: "abynerrocha.vercel.app",
+      }
+    ],
   },
 };
 
