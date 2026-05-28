@@ -2,7 +2,11 @@
 
 Bem-vindo(a) ao repositório do meu portfólio! Este espaço foi criado para centralizar e demonstrar meus principais projetos, minhas habilidades técnicas e minha evolução como profissional de tecnologia.
 
-🌐 **Acesse o portfólio ao vivo aqui:** [Clique aqui](https://abynerrocha.vercel.app)
+![Screenshoot](./public/print.png)
+
+🌐 **Acesse o portfólio aqui:** [Clique aqui](https://abynerrocha.vercel.app)
+
+🇺🇸 [English Version](./README-eng.md)
 
 ---
 
