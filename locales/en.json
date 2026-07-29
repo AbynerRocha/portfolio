@@ -1,0 +1,24 @@
+{
+    "hero": {
+        "title": "I build web products from scratch to deploy.",
+        "subtitle": "TypeScript and NodeJS on a day basis. Focused on code that solves real problems not only that runs",
+        "buttons": {
+            "work-together": "$ lets-work-together",
+            "view-projects": "View projects"
+        }
+    },
+    "navbar": {
+        "hero": "home",
+        "about": "about",
+        "projects": "projects",
+        "contact": "contact",
+        "drawer-button": "$ ./get-in-touch.sh"
+    },
+    "about-me": {
+        "title": "Who wrote this code",
+        "subtitle": "about me",
+        "description": "I build fast, secure, and scalable APIs with Node.js and TypeScript. I’ve been programming since I was 12, and today I focus on developing robust backends, applying best practices in architecture, security, and performance to create simple, efficient, and maintainable solutions.",
+        "photo-title": "photo.jpg",
+        "photo-alt": "My photo"
+    }
+}

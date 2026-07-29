@@ -5,10 +5,11 @@ import { twMerge } from 'tailwind-merge';
 type CodeBlockProps = {
   className?: string
   children: React.ReactNode
+  withLineNumber?: boolean
 }
 
 type CodeLineProps = {
-  lineNumber: number
+  lineNumber?: number
   children: React.ReactNode
   className?: string
 }
@@ -32,9 +33,9 @@ export const Punctuation = ({ children, className }: { children: React.ReactNode
 export function CodeLine({ lineNumber, children, className }: CodeLineProps) {
   return (
     <div className={twMerge("flex flex-row items-start gap-3 font-code text-sm leading-7 sm:text-[15px]", className)}>
-      <aside className="w-4 shrink-0 text-right text-tertiary select-none sm:w-6">
+      {lineNumber && <aside className="w-4 shrink-0 text-right text-tertiary select-none sm:w-6">
         {lineNumber}
-      </aside>
+      </aside>}
       <pre className="m-0 flex-1 overflow-x-hidden wrap-break-word whitespace-pre-wrap text-text-primary">
         {children}
       </pre>
@@ -42,13 +43,13 @@ export function CodeLine({ lineNumber, children, className }: CodeLineProps) {
   )
 }
 
-export default function CodeBlock({ className, children }: CodeBlockProps) {
+export default function CodeBlock({ className, withLineNumber, children }: CodeBlockProps) {
   return (
     <div className={twMerge("w-full overflow-hidden rounded-lg bg-primary px-4 py-3 font-code", className)}>
       {React.Children.map(children, (child, idx) => {
         if(!child) return null
 
-        return <CodeLine key={idx} lineNumber={idx+1}>
+        return <CodeLine key={idx} lineNumber={withLineNumber ? idx+1 : undefined}>
           {child}
         </CodeLine>
       })}

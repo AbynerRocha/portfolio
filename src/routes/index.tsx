@@ -1,25 +1,29 @@
 import { createFileRoute } from '@tanstack/react-router'
 import CodeBlock, { Keyword, Property, Punctuation, StringVal } from '../components/Code';
+import { useTranslation } from 'react-i18next';
+import { AboutMe } from '#/components/Sections/AboutMe.tsx';
 
 export const Route = createFileRoute('/')({ component: Home })
 
 const stacks = ["NodeJS", "TypeScript", "PHP", "MySQL"]
 
 function Home() {
+  const { t, i18n } = useTranslation()
+
   return (
     <main className="flex flex-col min-h-screen items-center p-4 sm:p-8 space-y-10">
       <section className="mx-auto flex min-h-[calc(100vh-2rem)] w-full max-w-xl flex-col items-center justify-center gap-2 sm:gap-6 md:gap-12 md:max-w-7xl lg:flex-row lg:justify-between">
         <section className="mt-10 flex flex-col md:items-start justify-center space-y-6 pl-0 sm:pl-7 lg:mt-0 lg:max-w-160 lg:flex-1">
-          <h1 className="font-title text-center md:text-start font-bold text-3xl md:text-5xl text-text-primary w">Eu construo produtos web do zero ao deploy.</h1>
-          <p className="text-secondary text-center md:text-start text-sm md:text-lg">TypeScript e NodeJS no dia a dia. Focado em código que resolve problema real,não so que roda.</p>
+          <h1 className="font-title text-center md:text-start font-bold text-3xl md:text-5xl text-text-primary w">{t("hero.title")}</h1>
+          <p className="text-secondary text-center md:text-start text-sm md:text-lg">{t('hero.subtitle')}</p>
 
           <div className="font-code space-y-2 md:space-x-4 flex flex-col items-center justify-center">
-            <button className="bg-accent rounded-lg h-12 w-64 font-medium text-tertiary cursor-pointer transition-all duration-150 hover:bg-accent/80 active:bg-accent">$ vamos-trabalhar-juntos</button>
-            <button className="bg-none border border-border rounded-lg h-12 w-48 text-secondary cursor-pointer transition-all duration-150 active:bg-primary hover:bg-card">ver projetos</button>
+            <button className="bg-accent rounded-lg h-12 w-64 font-medium text-tertiary cursor-pointer transition-all duration-150 hover:bg-accent/80 active:bg-accent">{t("hero.buttons.work-together")}</button>
+            <button className="bg-none border border-border rounded-lg h-12 w-48 text-secondary cursor-pointer transition-all duration-150 active:bg-primary hover:bg-card">{t("hero.buttons.view-projects")}</button>
           </div>
         </section>
         
-        <CodeBlock className="w-full max-w-full sm:w-auto sm:min-w-[24rem] lg:w-[32rem] mt-10">
+        <CodeBlock withLineNumber className="w-full max-w-full sm:w-auto sm:min-w-[24rem] lg:w-[32rem] mt-10">
           <>
             <Keyword>const</Keyword> dev <Punctuation>= &#123;</Punctuation>
           </>
@@ -59,8 +63,8 @@ function Home() {
 
       </section>
 
-      <section className="w-full min-h-[calc(100vh-2rem)] bg-red-500">
-        
+      <section className="w-full min-h-[calc(100vh-2rem)]">
+        <AboutMe/>
       </section>
     </main>
   )

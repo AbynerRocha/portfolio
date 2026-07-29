@@ -1,5 +1,8 @@
 import { FileBraces, Folder, X } from "lucide-react";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { LuGithub } from "react-icons/lu";
+import { twMerge } from "tailwind-merge";
 
 type NavbarProps = {
   onClickDrawer?: () => void;
@@ -11,6 +14,8 @@ type NavbarDrawerProps = {
 }
 
 export function NavbarDrawer({ onCloseDrawer }: NavbarDrawerProps) {
+  const { t, i18n } = useTranslation()
+
   function handleClose() {
     document.getElementById('navbar-drawer')?.classList.remove('animate-in')
     document.getElementById('navbar-drawer')?.classList.add('animate-out')
@@ -46,31 +51,36 @@ export function NavbarDrawer({ onCloseDrawer }: NavbarDrawerProps) {
       <section className="h-[75%] text-sm mt-4 text-secondary">
         <ul>
           <li className="flex items-center gap-3 h-14 w-full pl-5 bg-accent/10 border-l-2 text-accent border-l-accent">
-            <FileBraces className="size-4 " />hero.tsx
+            <FileBraces className="size-4 " />{t('navbar.hero')}.tsx
           </li>
-          <li className="flex items-center gap-3 h-14 w-full pl-5"><FileBraces className="size-4 " />sobre.tsx</li>
-          <li className="flex items-center gap-3 h-14 w-full pl-5"><FileBraces className="size-4 " />projetos.tsx</li>
-          <li className="flex items-center gap-3 h-14 w-full pl-5"><FileBraces className="size-4 " />contato.tsx</li>
+          <li className="flex items-center gap-3 h-14 w-full pl-5"><FileBraces className="size-4 " />{t('navbar.about')}.tsx</li>
+          <li className="flex items-center gap-3 h-14 w-full pl-5"><FileBraces className="size-4 " />{t('navbar.projects')}.tsx</li>
+          <li className="flex items-center gap-3 h-14 w-full pl-5"><FileBraces className="size-4 " />{t('navbar.contact')}.tsx</li>
         </ul>
       </section>
       <footer className="p-3 h-full w-full border-t-2 border-t-border">
         <div className="flex flex-row justify-between text-sm mb-3 text-secondary">
-          <span className="space-x-2">
-            <span className="text-accent font-medium">PT</span>
-            <span>EN</span>
+          <span onClick={() => i18n.changeLanguage(i18n.language === 'pt-BR' ? 'en' : 'pt-BR')} className="space-x-2">
+            <span className={twMerge("transition-all duration-200 ease-in-out", i18n.language === 'pt-BR' ? "text-accent font-medium" : "")}>PT</span>
+            <span className={twMerge("transition-all duration-200 ease-in-out", i18n.language === 'en' ? "text-accent font-medium" : "")}>EN</span>
           </span>
           <a href="https://github.com/AbynerRocha" target="_blank" className="flex flex-row items-center gap-1">
-            <LuGithub/>
+            <LuGithub />
             Github
           </a>
         </div>
-        <button className="bg-accent rounded-lg h-12 w-63 text-xs font-medium text-tertiary cursor-pointer transition-all duration-150 hover:bg-accent/80 active:bg-accent">$ ./entrar-em-contato.sh</button>
+        <button
+          className="bg-accent rounded-lg h-12 w-63 text-xs font-medium text-tertiary cursor-pointer transition-all duration-150 hover:bg-accent/80 active:bg-accent"
+        >
+          {t('navbar.drawer-button')}
+        </button>
       </footer>
     </aside>
   </section>
 }
 
 export default function Navbar({ onClickDrawer, isDrawerOpen }: NavbarProps) {
+  const { t, i18n } = useTranslation()
   return (
     <nav className="fixed top-0 flex flex-row items-center w-full h-16 bg-card text-text-tertiary px-4 ">
       <div className="h-full w-fit flex flex-row space-x-2 items-center mr-10">
@@ -81,20 +91,24 @@ export default function Navbar({ onClickDrawer, isDrawerOpen }: NavbarProps) {
       <div className=" hidden md:flex flex-1 flex-row justify-between font-code text-xs text-secondary">
         <ul className="flex flex-row space-x-3">
           <li className="bg-primary rounded-md border-t-2 border-t-accent py-2 w-24 text-accent text-center">
-            <a>hero.tsx</a>
+            <a>{t('navbar.hero')}.tsx</a>
           </li>
           <li className="rounded-md py-2 w-24 text-center">
-            <a>sobre.tsx</a>
+            <a>{t('navbar.about')}.tsx</a>
           </li>
           <li className="rounded-md py-2 w-24 text-center">
-            <a>projetos.tsx</a>
+            <a>{t('navbar.projects')}.tsx</a>
           </li>
           <li className="rounded-md py-2 w-24 text-center">
-            <a>contato.tsx</a>
+            <a>{t('navbar.contact')}.tsx</a>
           </li>
         </ul>
-        <button className="text-md cursor-pointer">
-          PT/EN
+        <button
+          onClick={() => i18n.changeLanguage(i18n.language === 'pt-BR' ? 'en' : 'pt-BR')}
+          className="text-lg cursor-pointer space-x-2"
+        >
+          <span className={twMerge("transition-all duration-200 ease-in-out", i18n.language === 'pt-BR' ? "text-accent font-medium" : "")}>PT</span>
+          <span className={twMerge("transition-all duration-200 ease-in-out", i18n.language === 'en' ? "text-accent font-medium" : "")}>EN</span>
         </button>
       </div>
 

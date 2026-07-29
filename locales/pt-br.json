@@ -1,0 +1,24 @@
+{
+    "hero": {
+        "title": "Eu construo produtos web do zero ao deploy.",
+        "subtitle": "TypeScript e NodeJS no dia a dia. Focado em código que resolve problema real,não so que roda.",
+        "buttons": {
+            "work-together": "$ vamos-trabalhar-juntos",
+            "view-projects": "ver projetos"
+        }
+    },
+    "navbar": {
+        "hero": "início",
+        "about": "sobre",
+        "projects": "projetos",
+        "contact": "contato",
+        "drawer-button": "$ ./entrar-em-contato.sh"
+    },
+    "about-me": {
+        "title": "Quem escreveu esse código",
+        "subtitle": "sobre mim",
+        "description": "Construo APIs rápidas, seguras e escaláveis com Node.Js e TypeScript. Programo desde os 12 anos e hoje meu foco é desenvolver backends robustos, aplicando boas práticas de arquitetura, segurança e performance para criar soluções simples, eficientes e fáceis de manter.",
+        "photo-title": "foto.jpg",
+        "photo-alt": "Minha foto"
+    }   
+}
