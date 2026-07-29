@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Space+Grotesk:wght@300..700&display=swap');
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@theme {
+  --color-primary: #14161C;
+  --color-card: #1A1D24;
+  --color-border: #262A33;
+  --color-text-primary: #ECE9E2;
+  --color-secondary: #9A9EA6;
+  --color-tertiary: #3D4048;
+  --color-accent: #E8A33D;
+  --color-accent-secondary: #5FB3A3,
+  --color-accent-tertiary: #8AB4E8;
+
+  --font-title: "Space Grotesk", sans-serif;
+  --font-text: "Inter", sans-serif;
+  --font-code: "JetBrains Mono", monospace;
+
+  --animate-blink: cursor-blink .8s linear infinite;
+}
+
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+  background: var(--color-primary);
+}
+
+body {
+  margin: 0;
+}
+
