@@ -10,7 +10,7 @@
   --color-secondary: #9A9EA6;
   --color-tertiary: #3D4048;
   --color-accent: #E8A33D;
-  --color-accent-secondary: #5FB3A3,
+  --color-accent-secondary: #5FB3A3;
   --color-accent-tertiary: #8AB4E8;
 
   --font-title: "Space Grotesk", sans-serif;
@@ -28,6 +28,10 @@
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html,

@@ -1,5 +1,6 @@
+import { t } from "i18next";
 import { FileBraces, Folder, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LuGithub } from "react-icons/lu";
 import { twMerge } from "tailwind-merge";
@@ -13,8 +14,46 @@ type NavbarDrawerProps = {
   onCloseDrawer?: () => void;
 }
 
+const tabs = [
+  { name: t("navbar.hero") + ".tsx", value: "hero" },
+  { name: t("navbar.about") + ".tsx", value: "about-me" },
+  { name: t("navbar.projects") + ".tsx", value: "projects" },
+  { name: t("navbar.contact") + ".tsx", value: "contact" },
+]
+
 export function NavbarDrawer({ onCloseDrawer }: NavbarDrawerProps) {
   const { t, i18n } = useTranslation()
+
+  const [tabSelected, setTabSelected] = useState("hero")
+  const drawerTabs = [
+    { name: `${t("navbar.hero")}.tsx`, value: "hero" },
+    { name: `${t("navbar.about")}.tsx`, value: "about-me" },
+    { name: `${t("navbar.projects")}.tsx`, value: "projects" },
+    { name: `${t("navbar.contact")}.tsx`, value: "contact" },
+  ]
+
+  useEffect(() => {
+    const sections = document.querySelectorAll("section[data-section]")
+
+    function updateSelectedTab() {
+      const visibleSection = Array.from(sections).find((section) => {
+        const { top, bottom, height } = section.getBoundingClientRect()
+        const visibleHeight =
+          Math.min(bottom, window.innerHeight) - Math.max(top, 0)
+
+        return visibleHeight >= height * 0.5
+      })
+
+      if (visibleSection) {
+        setTabSelected(visibleSection.id)
+      }
+    }
+
+    updateSelectedTab()
+    window.addEventListener("scroll", updateSelectedTab, { passive: true })
+
+    return () => window.removeEventListener("scroll", updateSelectedTab)
+  }, [])
 
   function handleClose() {
     document.getElementById('navbar-drawer')?.classList.remove('animate-in')
@@ -50,12 +89,11 @@ export function NavbarDrawer({ onCloseDrawer }: NavbarDrawerProps) {
 
       <section className="h-[75%] text-sm mt-4 text-secondary">
         <ul>
-          <li className="flex items-center gap-3 h-14 w-full pl-5 bg-accent/10 border-l-2 text-accent border-l-accent">
-            <FileBraces className="size-4 " />{t('navbar.hero')}.tsx
-          </li>
-          <li className="flex items-center gap-3 h-14 w-full pl-5"><FileBraces className="size-4 " />{t('navbar.about')}.tsx</li>
-          <li className="flex items-center gap-3 h-14 w-full pl-5"><FileBraces className="size-4 " />{t('navbar.projects')}.tsx</li>
-          <li className="flex items-center gap-3 h-14 w-full pl-5"><FileBraces className="size-4 " />{t('navbar.contact')}.tsx</li>
+          {drawerTabs.map((tab) => (
+            <li key={tab.value} className={twMerge("h-14 w-full pl-5 ", tabSelected === tab.value && "bg-accent/10 text-accent border-l-2 border-l-accent")}>
+              <a href={`#${tab.value}`} onClick={handleClose} className="h-full w-full flex flex-row items-center gap-3"><FileBraces className="size-4 " /> {tab.name}</a>
+            </li>
+          ))}
         </ul>
       </section>
       <footer className="p-3 h-full w-full border-t-2 border-t-border">
@@ -80,7 +118,31 @@ export function NavbarDrawer({ onCloseDrawer }: NavbarDrawerProps) {
 }
 
 export default function Navbar({ onClickDrawer, isDrawerOpen }: NavbarProps) {
-  const { t, i18n } = useTranslation()
+  const { i18n } = useTranslation()
+
+  const [tabSelected, setTabSelected] = useState(document.location.hash.slice(1))
+
+  useEffect(() => {
+    const sections = document.querySelectorAll("section[data-section]")
+
+    function updateSelectedTab() {
+      const visibleSection = Array.from(sections).find((section) => {
+        const { top, bottom, height } = section.getBoundingClientRect()
+        const visibleHeight =
+          Math.min(bottom, window.innerHeight) - Math.max(top, 0)
+
+        return visibleHeight >= height * 0.5
+      })
+
+      if (visibleSection) {
+        setTabSelected(visibleSection.id)
+      }
+    }
+    window.addEventListener("scroll", updateSelectedTab, { passive: true })
+
+    return () => window.removeEventListener("scroll", updateSelectedTab)
+  }, [])
+
   return (
     <nav className="fixed top-0 flex flex-row items-center w-full h-16 bg-card text-text-tertiary px-4 ">
       <div className="h-full w-fit flex flex-row space-x-2 items-center mr-10">
@@ -90,18 +152,11 @@ export default function Navbar({ onClickDrawer, isDrawerOpen }: NavbarProps) {
       </div>
       <div className=" hidden md:flex flex-1 flex-row justify-between font-code text-xs text-secondary">
         <ul className="flex flex-row space-x-3">
-          <li className="bg-primary rounded-md border-t-2 border-t-accent py-2 w-24 text-accent text-center">
-            <a>{t('navbar.hero')}.tsx</a>
-          </li>
-          <li className="rounded-md py-2 w-24 text-center">
-            <a>{t('navbar.about')}.tsx</a>
-          </li>
-          <li className="rounded-md py-2 w-24 text-center">
-            <a>{t('navbar.projects')}.tsx</a>
-          </li>
-          <li className="rounded-md py-2 w-24 text-center">
-            <a>{t('navbar.contact')}.tsx</a>
-          </li>
+          {tabs.map((tab, idx) => (
+            <li key={idx} className={twMerge("rounded-md py-2 w-24 text-center", tabSelected === tab.value && "border-t-accent border-t-2 text-accent")}>
+              <a href={`#${tab.value}`}>{tab.name}</a>
+            </li>
+          ))}
         </ul>
         <button
           onClick={() => i18n.changeLanguage(i18n.language === 'pt-BR' ? 'en' : 'pt-BR')}

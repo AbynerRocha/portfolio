@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import CodeBlock, { Keyword, Property, Punctuation, StringVal } from '../components/Code';
 import { useTranslation } from 'react-i18next';
 import { AboutMe } from '#/components/Sections/AboutMe.tsx';
+import Projects from '#/components/Sections/Projects.tsx';
 
 export const Route = createFileRoute('/')({ component: Home })
 
@@ -12,18 +13,8 @@ function Home() {
 
   return (
     <main className="flex flex-col min-h-screen items-center p-4 sm:p-8 space-y-10">
-      <section className="mx-auto flex min-h-[calc(100vh-2rem)] w-full max-w-xl flex-col items-center justify-center gap-2 sm:gap-6 md:gap-12 md:max-w-7xl lg:flex-row lg:justify-between">
-        <section className="mt-10 flex flex-col md:items-start justify-center space-y-6 pl-0 sm:pl-7 lg:mt-0 lg:max-w-160 lg:flex-1">
-          <h1 className="font-title text-center md:text-start font-bold text-3xl md:text-5xl text-text-primary w">{t("hero.title")}</h1>
-          <p className="text-secondary text-center md:text-start text-sm md:text-lg">{t('hero.subtitle')}</p>
-
-          <div className="font-code space-y-2 md:space-x-4 flex flex-col items-center justify-center">
-            <button className="bg-accent rounded-lg h-12 w-64 font-medium text-tertiary cursor-pointer transition-all duration-150 hover:bg-accent/80 active:bg-accent">{t("hero.buttons.work-together")}</button>
-            <button className="bg-none border border-border rounded-lg h-12 w-48 text-secondary cursor-pointer transition-all duration-150 active:bg-primary hover:bg-card">{t("hero.buttons.view-projects")}</button>
-          </div>
-        </section>
-        
-        <CodeBlock withLineNumber className="w-full max-w-full sm:w-auto sm:min-w-[24rem] lg:w-[32rem] mt-10">
+      <section id="hero" data-section className="mx-auto flex min-h-[calc(100vh-2rem)] w-full max-w-xl flex-col items-center justify-center gap-2 sm:gap-6 md:gap-12 md:max-w-7xl lg:flex-row lg:justify-between">
+        <CodeBlock withLineNumber className="w-full max-w-full sm:w-auto sm:min-w-[24rem] lg:w-[32rem]">
           <>
             <Keyword>const</Keyword> dev <Punctuation>= &#123;</Punctuation>
           </>
@@ -60,11 +51,25 @@ function Home() {
 
           </span>
         </CodeBlock>
+        <section className="mt-10 flex flex-col md:items-center justify-center space-y-6 pl-0 sm:pl-7 lg:mt-0 lg:max-w-160 lg:flex-1">
+          <h1 className="font-title text-center md:text-center font-bold text-3xl md:text-5xl text-text-primary w">{t("hero.title")}</h1>
+          <p className="text-secondary text-center md:text-center text-sm md:text-lg">{t('hero.subtitle')}</p>
 
+          <div className="font-code space-y-2 md:space-x-4 flex flex-col items-center justify-center">
+            <button className="bg-accent rounded-lg h-12 w-64 font-medium text-tertiary cursor-pointer transition-all duration-150 hover:bg-accent/80 active:bg-accent">{t("hero.buttons.work-together")}</button>
+            <button className="bg-none border border-border rounded-lg h-12 w-48 text-secondary cursor-pointer transition-all duration-150 active:bg-primary hover:bg-card">{t("hero.buttons.view-projects")}</button>
+          </div>
+        </section>
       </section>
 
-      <section className="w-full min-h-[calc(100vh-2rem)]">
-        <AboutMe/>
+      <section id="about-me" className="flex w-full min-h-[calc(100vh-2rem)]" data-section>
+        <AboutMe />
+      </section>
+      <section id="projects" className="flex w-full min-h-[calc(100vh-2rem)]" data-section>
+        <Projects />
+      </section>
+      <section id="contact" className="flex w-full min-h-[calc(100vh-2rem)]" data-section>
+
       </section>
     </main>
   )
