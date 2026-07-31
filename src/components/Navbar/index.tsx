@@ -119,7 +119,7 @@ export default function Navbar({ onClickDrawer, isDrawerOpen }: NavbarProps) {
     { name: t("navbar.contact") + ".tsx", value: "contact" },
   ]
 
-  const [tabSelected, setTabSelected] = useState(document.location.hash.slice(1))
+  const [tabSelected, setTabSelected] = useState("hero")
 
   useEffect(() => {
     const sections = document.querySelectorAll("section[data-section]")

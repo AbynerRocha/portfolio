@@ -5,6 +5,8 @@ import { HighlightProject, ProjectCard } from '#/components/Project'
 export default function Projects() {
   const { t } = useTranslation()
 
+  const highlightProject = projects[0]
+
   return <section id="projects" className="relative w-full" data-section>
     <div className="w-full h-auto">
       <header className="space-y-2 md:hidden">
@@ -20,13 +22,16 @@ export default function Projects() {
           <div className="flex w-full justify-center">
             <div className="w-full max-w-8xl md:mt-0">
               <HighlightProject
-                data={projects[0]}
+                data={highlightProject}
               />
             </div>
           </div>
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 place-items-center mt-4">
-          {projects.map((project, idx) => <ProjectCard key={idx} data={project} />)}
+          {projects.map((project, idx) => {
+            if(project === highlightProject) return
+            return <ProjectCard key={idx} data={project} />
+          })}
         </div>
       </div>
     </div>
