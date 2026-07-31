@@ -152,7 +152,7 @@ export default function Navbar({ onClickDrawer, isDrawerOpen }: NavbarProps) {
       <div className=" hidden md:flex flex-1 flex-row justify-between font-code text-xs text-secondary">
         <ul className="flex flex-row space-x-3">
           {tabs.map((tab, idx) => (
-            <li key={idx} className={twMerge("rounded-md py-2 w-24 text-center", tabSelected === tab.value && "border-t-accent border-t-2 text-accent")}>
+            <li key={idx} className={twMerge("rounded-md py-2 w-28 text-center", tabSelected === tab.value && "border-t-accent border-t-2 text-accent")}>
               <a href={`#${tab.value}`}>{tab.name}</a>
             </li>
           ))}

@@ -1,6 +1,7 @@
 import CodeBlock, { Property, Punctuation, StringVal } from '../Code';
 import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { ImageFrame } from '../ImageFrame';
 
 export function AboutMe() {
   const { t } = useTranslation()
@@ -41,26 +42,13 @@ export function AboutMe() {
           {/* Mobile */}
           <div className="flex flex-col md:hidden">
             <header className="flex flex-col items-center space-y-3 wrap-break-word">
-              <div className="flex flex-col items-center">
-                <h4 className="font-code font-medium italic text-green-600 mb-3">// {t("about-me.subtitle")}</h4>
-                <header className="flex flex-row items-center gap-3 w-full bg-card font-code border-b border-b-border text-secondary py-2 pl-4">
-                  <div
-                    className="size-3 bg-tertiary rounded-full"
-                  />
-                  <span className="text-xs">{t('about-me.photo-title')}</span>
-                </header>
-                <div className="relative h-64 w-48">
-                  <img
-                    src="/foto.webp"
-                    alt={t('about-me.photo-alt')}
-                    className="h-full w-full object-cover object-top"
-                  />
-
-                  {/* Gradiente sobre a imagem */}
-                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(20,22,28,0.15)_0%,rgba(20,22,28,0.45)_60%,rgba(232,163,61,0.20)_100%)]" />
-
-                </div>
-              </div>
+              <h4 className="font-code font-medium italic text-green-600 mb-3">// {t("about-me.subtitle")}</h4>
+              <ImageFrame title={t('about-me.photo.title')}>
+                <img
+                  src="/foto.webp"
+                  alt={t('about-me.photo-alt')}
+                />
+              </ImageFrame>
               <div className="space-y-2">
                 <h2 className="font-title text-text-primary font-bold text-2xl">{t("about-me.title")}</h2>
                 <p className="text-md text-secondary">
@@ -71,7 +59,7 @@ export function AboutMe() {
           </div>
         </section>
         <aside className="flex w-full flex-col items-center wrap-break-word">
-          <CodeBlock className="w-full max-w-[32rem] bg-card px-5 py-5 md:w-[30rem]">
+          <CodeBlock className="w-full max-w-lg bg-card px-5 py-5 md:w-120">
             <span className="flex flex-row justify-end items-center text-sm text-secondary mb-1">quick_facts.json <X size={13} /></span>
             <div className="h-0.5 w-full bg-border" />
             <span className="flex flex-row justify-between">

@@ -15,7 +15,7 @@ function Home() {
   return (
     <main className="flex flex-col min-h-screen items-center p-4 sm:p-8 space-y-10">
       <section id="hero" data-section className="mx-auto flex min-h-[calc(100vh-2rem)] w-full max-w-xl flex-col items-center justify-center gap-2 sm:gap-6 md:gap-12 md:max-w-7xl lg:flex-row lg:justify-between">
-        <CodeBlock withLineNumber className="w-full max-w-full sm:w-auto sm:min-w-[24rem] lg:w-[32rem]">
+        <CodeBlock withLineNumber className="w-full max-w-full sm:w-auto sm:min-w-[24rem] lg:w-lg">
           <>
             <Keyword>const</Keyword> dev <Punctuation>= &#123;</Punctuation>
           </>

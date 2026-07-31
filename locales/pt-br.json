@@ -24,8 +24,23 @@
     "projects": {
         "title": "O que eu construí",
         "comment": "meus projects",
+        "highlight": {
+            "description": "Plataforma de gerenciamento de treinos criada como projeto de PAP. Um aplicativo mobile, dashboard administrativo e API em uma experiência completa.",
+            "planning-workouts": {
+                "title": "Planejamento de treinos",
+                "description": "Agenda, series, descansos e cargas"
+            },
+            "follow-up": {
+                "title":  "Acompanhamento",
+                "description": "Histórico e evolução mensal"
+            },
+            "own-management": {
+                "title": "Gestão própria",
+                "description": "Exercícios cadastrados na dashboard"
+            }
+        },
         "evotraining": {
-            "description": "Um aplicativo de gerenciamento de treinos de musculação."
+            "description": "Plataforma de gerenciamento de treinos criada como projeto de PAP. Um aplicativo mobile, dashboard administrativo e API em uma experiência completa."
         }
     },
     "contact": {

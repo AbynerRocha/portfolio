@@ -22,10 +22,25 @@
         "photo-alt": "My photo"
     },
     "projects": {
+        "highlight": {
+            "description": "A workout management platform created as a final course project. A mobile app, an admin dashboard, and an API combined into one complete experience.",
+            "planning-workouts": {
+                "title": "Workout planning",
+                "description": "Schedules, sets, rest periods, and weights"
+            },
+            "follow-up": {
+                "title": "Progress tracking",
+                "description": "Workout history and monthly progress"
+            },
+            "own-management": {
+                "title": "Custom management",
+                "description": "Exercises managed through the dashboard"
+            }
+        },
         "title": "What I built",
         "comment": "my projects",
         "evotraining": {
-            "description": "A bodybuilding training management app."
+            "description": "A workout management platform created as a final course project. A mobile app, an admin dashboard, and an API combined into one complete experience."
         }
     },
     "contact": {
