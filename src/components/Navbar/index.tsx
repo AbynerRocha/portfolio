@@ -1,4 +1,3 @@
-import { t } from "i18next";
 import { FileBraces, Folder, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -14,23 +13,17 @@ type NavbarDrawerProps = {
   onCloseDrawer?: () => void;
 }
 
-const tabs = [
-  { name: t("navbar.hero") + ".tsx", value: "hero" },
-  { name: t("navbar.about") + ".tsx", value: "about-me" },
-  { name: t("navbar.projects") + ".tsx", value: "projects" },
-  { name: t("navbar.contact") + ".tsx", value: "contact" },
-]
-
 export function NavbarDrawer({ onCloseDrawer }: NavbarDrawerProps) {
   const { t, i18n } = useTranslation()
 
-  const [tabSelected, setTabSelected] = useState("hero")
-  const drawerTabs = [
-    { name: `${t("navbar.hero")}.tsx`, value: "hero" },
-    { name: `${t("navbar.about")}.tsx`, value: "about-me" },
-    { name: `${t("navbar.projects")}.tsx`, value: "projects" },
-    { name: `${t("navbar.contact")}.tsx`, value: "contact" },
+  const tabs = [
+    { name: t("navbar.hero") + ".tsx", value: "hero" },
+    { name: t("navbar.about") + ".tsx", value: "about-me" },
+    { name: t("navbar.projects") + ".tsx", value: "projects" },
+    { name: t("navbar.contact") + ".tsx", value: "contact" },
   ]
+
+  const [tabSelected, setTabSelected] = useState("hero")
 
   useEffect(() => {
     const sections = document.querySelectorAll("section[data-section]")
@@ -89,7 +82,7 @@ export function NavbarDrawer({ onCloseDrawer }: NavbarDrawerProps) {
 
       <section className="h-[75%] text-sm mt-4 text-secondary">
         <ul>
-          {drawerTabs.map((tab) => (
+          {tabs.map((tab) => (
             <li key={tab.value} className={twMerge("h-14 w-full pl-5 ", tabSelected === tab.value && "bg-accent/10 text-accent border-l-2 border-l-accent")}>
               <a href={`#${tab.value}`} onClick={handleClose} className="h-full w-full flex flex-row items-center gap-3"><FileBraces className="size-4 " /> {tab.name}</a>
             </li>
@@ -118,7 +111,13 @@ export function NavbarDrawer({ onCloseDrawer }: NavbarDrawerProps) {
 }
 
 export default function Navbar({ onClickDrawer, isDrawerOpen }: NavbarProps) {
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const tabs = [
+    { name: t("navbar.hero") + ".tsx", value: "hero" },
+    { name: t("navbar.about") + ".tsx", value: "about-me" },
+    { name: t("navbar.projects") + ".tsx", value: "projects" },
+    { name: t("navbar.contact") + ".tsx", value: "contact" },
+  ]
 
   const [tabSelected, setTabSelected] = useState(document.location.hash.slice(1))
 
@@ -144,7 +143,7 @@ export default function Navbar({ onClickDrawer, isDrawerOpen }: NavbarProps) {
   }, [])
 
   return (
-    <nav className="fixed top-0 flex flex-row items-center w-full h-16 bg-card text-text-tertiary px-4 ">
+    <nav className="fixed top-0 flex flex-row items-center w-full h-16 bg-card text-text-tertiary px-4 z-10">
       <div className="h-full w-fit flex flex-row space-x-2 items-center mr-10">
         <span className="bg-tertiary size-3 md:size-4 rounded-full"></span>
         <span className="bg-tertiary size-3 md:size-4 rounded-full"></span>

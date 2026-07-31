@@ -3,13 +3,14 @@ import CodeBlock, { Keyword, Property, Punctuation, StringVal } from '../compone
 import { useTranslation } from 'react-i18next';
 import { AboutMe } from '#/components/Sections/AboutMe.tsx';
 import Projects from '#/components/Sections/Projects.tsx';
+import Contact from '#/components/Sections/Contact.tsx';
 
 export const Route = createFileRoute('/')({ component: Home })
 
 const stacks = ["NodeJS", "TypeScript", "PHP", "MySQL"]
 
 function Home() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <main className="flex flex-col min-h-screen items-center p-4 sm:p-8 space-y-10">
@@ -56,21 +57,14 @@ function Home() {
           <p className="text-secondary text-center md:text-center text-sm md:text-lg">{t('hero.subtitle')}</p>
 
           <div className="font-code space-y-2 md:space-x-4 flex flex-col items-center justify-center">
-            <button className="bg-accent rounded-lg h-12 w-64 font-medium text-tertiary cursor-pointer transition-all duration-150 hover:bg-accent/80 active:bg-accent">{t("hero.buttons.work-together")}</button>
-            <button className="bg-none border border-border rounded-lg h-12 w-48 text-secondary cursor-pointer transition-all duration-150 active:bg-primary hover:bg-card">{t("hero.buttons.view-projects")}</button>
+            <a href="#contact" className="flex items-center justify-center bg-accent rounded-lg h-12 w-64 font-medium text-tertiary cursor-pointer transition-all duration-150 hover:bg-accent/80 active:bg-accent">{t("hero.buttons.work-together")}</a>
+            <a href="#projects" className="flex items-center justify-center bg-none border border-border rounded-lg h-12 w-48 text-secondary cursor-pointer transition-all duration-150 active:bg-primary hover:bg-card">{t("hero.buttons.view-projects")}</a>
           </div>
         </section>
       </section>
-
-      <section id="about-me" className="flex w-full min-h-[calc(100vh-2rem)]" data-section>
-        <AboutMe />
-      </section>
-      <section id="projects" className="flex w-full min-h-[calc(100vh-2rem)]" data-section>
-        <Projects />
-      </section>
-      <section id="contact" className="flex w-full min-h-[calc(100vh-2rem)]" data-section>
-
-      </section>
+      <AboutMe />
+      <Projects />
+      <Contact />
     </main>
   )
 }

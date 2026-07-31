@@ -20,5 +20,20 @@
         "description": "I build fast, secure, and scalable APIs with Node.js and TypeScript. I’ve been programming since I was 12, and today I focus on developing robust backends, applying best practices in architecture, security, and performance to create simple, efficient, and maintainable solutions.",
         "photo-title": "photo.jpg",
         "photo-alt": "My photo"
+    },
+    "projects": {
+        "title": "What I built",
+        "comment": "my projects",
+        "evotraining": {
+            "description": "A bodybuilding training management app."
+        }
+    },
+    "contact": {
+        "title": "Let's talk",
+        "subtitle": "Open to junior back-end developer opportunities",
+        "badge": {
+            "mobile": "available",
+            "desktop": "available for new opportunities"
+        }
     }
 }
