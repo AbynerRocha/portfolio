@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Abyner Rocha portfolio">
+  <rect width="64" height="64" rx="16" fill="#14161C" />
+  <rect x="4" y="4" width="56" height="56" rx="13" fill="#1A1D24" stroke="#262A33" stroke-width="2" />
+  <path d="M27 18 15 32l12 14" fill="none" stroke="#E8A33D" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" />
+  <path d="m37 18 12 14-12 14" fill="none" stroke="#8AB4E8" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" />
+  <rect x="29" y="29" width="6" height="6" rx="2" fill="#5FB3A3" />
+</svg>

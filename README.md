@@ -1,194 +1,124 @@
-Welcome to your new TanStack Start app!
+<div align="center">
+  <img src="./public/favicon.svg" alt="Ícone do portfólio" width="72" height="72" />
 
-# Getting Started
+  # Portfólio — Abyner Rocha
 
-To run this application:
+  Portfólio pessoal de um desenvolvedor back-end, criado para apresentar experiência, projetos e formas de contato em uma interface responsiva com identidade inspirada em código.
+
+  [Português](./README.md) · [English](./README.en.md)
+</div>
+
+## Sobre o projeto
+
+Este repositório contém o código do meu portfólio pessoal. A aplicação reúne uma apresentação profissional, informações sobre mim, projetos em destaque e canais de contato em uma experiência de página única disponível em português e inglês.
+
+O design utiliza uma paleta escura, tipografia voltada ao universo de desenvolvimento e componentes responsivos para desktop e dispositivos móveis.
+
+## Funcionalidades
+
+- Layout responsivo para desktop e mobile.
+- Conteúdo em português e inglês com i18next.
+- Navegação por seções com indicação da seção ativa.
+- Apresentação profissional em formato inspirado em código.
+- Projeto em destaque com imagem, funcionalidades, tecnologias e repositório.
+- Cards preparados para múltiplos projetos.
+- Seção de contato com e-mail, GitHub e LinkedIn.
+- Favicon próprio baseado na paleta visual do portfólio.
+
+## Tecnologias
+
+| Tecnologia | Utilização |
+| --- | --- |
+| React 19 | Construção da interface |
+| TypeScript | Tipagem e desenvolvimento da aplicação |
+| Vite | Ambiente de desenvolvimento e build |
+| Tailwind CSS 4 | Estilização e responsividade |
+| TanStack Router | Roteamento baseado em arquivos |
+| i18next | Internacionalização |
+| Lucide e React Icons | Ícones da interface |
+| Biome | Formatação e análise estática |
+
+## Estrutura principal
+
+```text
+new-portfolio/
+├── locales/                 # Traduções em português e inglês
+├── public/                  # Imagens e favicon
+├── src/
+│   ├── components/          # Componentes reutilizáveis
+│   │   ├── Navbar/
+│   │   ├── Project/
+│   │   └── Sections/
+│   ├── routes/              # Rotas do TanStack Router
+│   ├── utils/               # Dados e utilitários dos projetos
+│   ├── i18n.ts              # Configuração de idiomas
+│   └── styles.css           # Tema e estilos globais
+├── index.html
+└── vite.config.ts
+```
+
+## Como executar
+
+### Pré-requisitos
+
+- Node.js instalado.
+- Yarn Classic instalado.
+
+### Instalação
 
 ```bash
+git clone https://github.com/AbynerRocha/portfolio.git
+cd portfolio
 yarn install
-yarn run dev
 ```
 
-# Building For Production
-
-To build this application for production:
+### Desenvolvimento
 
 ```bash
-yarn run build
+yarn dev
 ```
 
-## Styling
+A aplicação será iniciada pelo Vite na porta `3000`.
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
-
-### Removing Tailwind CSS
-
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Remove `@tailwindcss/vite` and `tailwindcss` from `package.json`
-
-## Linting & Formatting
-
-This project uses [Biome](https://biomejs.dev/) for linting and formatting. The following scripts are available:
-
+### Build de produção
 
 ```bash
-yarn run lint
-yarn run format
-yarn run check
+yarn build
 ```
 
+### Visualizar o build
 
-
-## Routing
-
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
+```bash
+yarn preview
 ```
 
-Then anywhere in your JSX you can use it like so:
+## Scripts disponíveis
 
-```tsx
-<Link to="/about">About</Link>
-```
+| Comando | Descrição |
+| --- | --- |
+| `yarn dev` | Inicia o ambiente de desenvolvimento |
+| `yarn build` | Gera o build de produção |
+| `yarn preview` | Executa uma prévia do build |
+| `yarn lint` | Analisa o código com Biome |
+| `yarn format` | Formata o código com Biome |
+| `yarn check` | Executa as verificações do Biome |
+| `yarn generate-routes` | Atualiza a árvore de rotas |
 
-This will create a link that will navigate to the `/about` route.
+## Personalização
 
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
+- Edite os projetos em `src/utils/projects.ts`.
+- Altere os textos em `locales/pt-br.json` e `locales/en.json`.
+- Ajuste cores e fontes no bloco `@theme` de `src/styles.css`.
+- Substitua imagens e favicon dentro de `public/`.
 
-### Using A Layout
+## Contato
 
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
+- GitHub: [AbynerRocha](https://github.com/AbynerRocha)
+- LinkedIn: [Abyner Rocha](https://linkedin.com/in/abynerrocha/)
+- E-mail: [abynerr.rocha@gmail.com](mailto:abynerr.rocha@gmail.com)
 
-Here is an example layout that includes a header:
+---
 
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
-```
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start'
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString()
-})
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('')
-  
-  useEffect(() => {
-    getServerTime().then(setTime)
-  }, [])
-  
-  return <div>Server time: {time}</div>
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { json } from '@tanstack/react-start'
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-})
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people')
-    return response.json()
-  },
-  component: PeopleComponent,
-})
-
-function PeopleComponent() {
-  const data = Route.useLoaderData()
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+<div align="center">
+  Desenvolvido por <a href="https://github.com/AbynerRocha">Abyner Rocha</a>.
+</div>
