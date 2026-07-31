@@ -122,24 +122,27 @@ export default function Navbar({ onClickDrawer, isDrawerOpen }: NavbarProps) {
   const [tabSelected, setTabSelected] = useState("hero")
 
   useEffect(() => {
-    const sections = document.querySelectorAll("section[data-section]")
+    const sections = document.querySelectorAll<HTMLElement>(
+      "section[data-section]",
+    )
 
-    function updateSelectedTab() {
-      const visibleSection = Array.from(sections).find((section) => {
-        const { top, bottom, height } = section.getBoundingClientRect()
-        const visibleHeight =
-          Math.min(bottom, window.innerHeight) - Math.max(top, 0)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const current = entries.find((entry) => entry.isIntersecting)
 
-        return visibleHeight >= height * 0.5
-      })
+        if (current) {
+          setTabSelected(current.target.id)
+        }
+      },
+      {
+        rootMargin: "-49% 0px -49% 0px",
+        threshold: 0,
+      },
+    )
 
-      if (visibleSection) {
-        setTabSelected(visibleSection.id)
-      }
-    }
-    window.addEventListener("scroll", updateSelectedTab, { passive: true })
+    sections.forEach((section) => observer.observe(section))
 
-    return () => window.removeEventListener("scroll", updateSelectedTab)
+    return () => observer.disconnect()
   }, [])
 
   return (

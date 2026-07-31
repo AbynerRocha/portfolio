@@ -10,7 +10,7 @@ export function HighlightProject({ data: { name, github, techs } }: ProjectCardP
   const { t } = useTranslation()
 
   return (
-    <div className="mx-auto flex w-full flex-col transition-all duration-200 ease-in-out md:w-5xl md:flex-row md:justify-center md:hover:-translate-y-3
+    <div className="mx-auto flex w-full flex-col transition-transform duration-200 ease-in-out md:w-5xl md:flex-row md:justify-center md:hover:-translate-y-3
     
     ">
       <ImageFrame
@@ -21,7 +21,12 @@ export function HighlightProject({ data: { name, github, techs } }: ProjectCardP
         dotColor="bg-accent"
       >
         <img
-          src="highlight-project-print.png"
+          src="/highlight-project-print.webp"
+          alt={`${name} project preview`}
+          width={777}
+          height={848}
+          loading="lazy"
+          decoding="async"
         />
       </ImageFrame>
       <section className="w-full md:w-[55%]">

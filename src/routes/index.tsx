@@ -4,8 +4,20 @@ import { useTranslation } from 'react-i18next';
 import { AboutMe } from '#/components/Sections/AboutMe.tsx';
 import Projects from '#/components/Sections/Projects.tsx';
 import Contact from '#/components/Sections/Contact.tsx';
+import i18n from '../i18n';
 
-export const Route = createFileRoute('/')({ component: Home })
+export const Route = createFileRoute('/')({
+  head: () => ({
+    meta: [
+      { title: i18n.t("head.title") },
+      {
+        name: "description",
+        content: i18n.t("head.description")
+      }
+    ]
+  }),
+  component: Home
+})
 
 const stacks = ["NodeJS", "TypeScript", "PHP", "MySQL"]
 

@@ -1,4 +1,4 @@
-import { Outlet, createRootRoute } from '@tanstack/react-router'
+import { HeadContent, Outlet, createRootRoute } from '@tanstack/react-router'
 
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
@@ -15,8 +15,6 @@ export const Route = createRootRoute({
 function RootComponent() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
-  // Disable scroll when drawer is open
-
   useEffect(() => {
     document.body.style.overflow = isDrawerOpen ? 'hidden' : ''
 
@@ -26,18 +24,21 @@ function RootComponent() {
   }, [isDrawerOpen])
 
   return (
-    <div className="min-h-screen w-full bg-primary font-text text-text-primary">
-      <Navbar
-        isDrawerOpen={isDrawerOpen}
-        onClickDrawer={() => setIsDrawerOpen(true)}
-      />
+    <>
+      <HeadContent />
+      <div className="min-h-screen w-full bg-primary font-text text-text-primary">
+        <Navbar
+          isDrawerOpen={isDrawerOpen}
+          onClickDrawer={() => setIsDrawerOpen(true)}
+        />
       {isDrawerOpen && <NavbarDrawer
         onCloseDrawer={() => setIsDrawerOpen(false)}
       />}
 
       <Outlet />
 
-      <Footer/>
-    </div>
+        <Footer/>
+      </div>
+    </>
   )
 }

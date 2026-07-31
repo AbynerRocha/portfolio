@@ -1,4 +1,8 @@
 {
+    "head": {
+        "title": "Abyner Rocha - Portfolio",
+        "description": "My personal portfolio. The application combines a professional introduction, information about me, featured projects."
+    },
     "hero": {
         "title": "I build web products from scratch to deploy.",
         "subtitle": "TypeScript and NodeJS on a day basis. Focused on code that solves real problems not only that runs",

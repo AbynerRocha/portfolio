@@ -1,4 +1,8 @@
 {
+    "head": {
+        "title": "Abyner Rocha - Portfólio",
+        "description": "Meu portfólio pessoal reúne uma apresentação profissional, informações sobre mim, projetos em destaque e canais de contato em uma experiência de página única."
+    },
     "hero": {
         "title": "Eu construo produtos web do zero ao deploy.",
         "subtitle": "TypeScript e NodeJS no dia a dia. Focado em código que resolve problema real,não so que roda.",
